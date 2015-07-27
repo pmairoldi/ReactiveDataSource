@@ -28,12 +28,12 @@ class CollectionViewController: UICollectionViewController {
         collectionView.delegate = self
         collectionView.collectionViewLayout = layout
         
-        model?.dataSource.pushbackSignal.observe(next: { value in
+        model?.dataSource.pushbackSignal.observe(next: { [weak self] value in
             switch value {
             case let CellActions.Button1(x):
-                print(x)
+                self?.displayMessage("Action", message: x)
             case let CellActions.Button2(x):
-                print(x)
+                self?.displayMessage("Action", message: x)
             default:
                 print("noop")
             }
