@@ -1,10 +1,8 @@
 internal extension Array {
-    
     internal func atIndex(index: Int) -> Element? {
-        if index >= count {
+        guard index < count else {
             return nil
-        } else {
-            return self[index]
         }
+        return self[index]
     }
 }
