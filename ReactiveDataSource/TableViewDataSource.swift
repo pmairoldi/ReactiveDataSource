@@ -29,7 +29,10 @@ public class TableViewDataSource<T>: NSObject, UITableViewDataSource {
         
         super.init()
         
-        self.data.property <~ dataProducer.on(next: { _ in tableView.reloadData() })
+        self.data.property <~ dataProducer
+        self.data.property.producer.start(next: { _ in
+            tableView.reloadData()
+        })
     }
     
     convenience public init(tableView: UITableView, dataProducer: SignalProducer<[T], NoError>, configuration: TableViewConfiguration) {

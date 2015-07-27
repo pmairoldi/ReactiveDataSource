@@ -25,7 +25,10 @@ public class CollectionViewDataSource<T>: NSObject, UICollectionViewDataSource {
         
         super.init()
         
-        self.data.property <~ dataProducer.on(next: { _ in collectionView.reloadData() })
+        self.data.property <~ dataProducer
+        self.data.property.producer.start(next: { _ in
+            collectionView.reloadData()
+        })
     }
     
     convenience public init(collectionView: UICollectionView, dataProducer: SignalProducer<[T], NoError>, configuration: CollectionViewConfiguration) {
