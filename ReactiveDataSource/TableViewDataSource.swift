@@ -66,7 +66,11 @@ public class TableViewDataSource<T>: NSObject, UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier(configuration.reuseIdentifier, forIndexPath: indexPath)
         
         if let item = data.item(atIndexPath: indexPath), let bindableCell = cell as? Bindable {
-            bindableCell.bind(item, pushback: pushbackAction)
+            
+            cell.rac_prepareForReuse.startWithSignal { signal, disposable in
+                bindableCell.bind(item, pushback: pushbackAction, reuse: signal)
+                signal.takeUntil(signal).observe(completed: { [weak cell] in let bindedCell = cell as? Bindable; bindedCell?.unbind() })
+            }
         }
         
         return cell

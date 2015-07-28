@@ -44,7 +44,11 @@ public class CollectionViewDataSource<T>: NSObject, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(configuration.reuseIdentifier, forIndexPath: indexPath)
         
         if let item = data.item(atIndexPath: indexPath), let bindableCell = cell as? Bindable {
-            bindableCell.bind(item, pushback: pushbackAction)
+            
+            cell.rac_prepareForReuse.startWithSignal { signal, disposable in
+                bindableCell.bind(item, pushback: pushbackAction, reuse: signal)
+                signal.takeUntil(signal).observe(completed: { [weak cell] in let bindedCell = cell as? Bindable; bindedCell?.unbind() })
+            }
         }
         
         return cell
@@ -57,19 +61,19 @@ public class CollectionViewDataSource<T>: NSObject, UICollectionViewDataSource {
 
 /*
 extension CollectionViewDataSource {
-    
-    public func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        return UICollectionReusableView()
-    }
-    
-    @available(iOS 9.0, *)
-    public func collectionView(collectionView: UICollectionView, canMoveItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-    
-    @available(iOS 9.0, *)
-    public func collectionView(collectionView: UICollectionView, moveItemAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-        
-    }
+
+public func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+return UICollectionReusableView()
+}
+
+@available(iOS 9.0, *)
+public func collectionView(collectionView: UICollectionView, canMoveItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+return false
+}
+
+@available(iOS 9.0, *)
+public func collectionView(collectionView: UICollectionView, moveItemAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+
+}
 }
 */

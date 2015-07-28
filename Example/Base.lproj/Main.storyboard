@@ -69,9 +69,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="88u-eK-XvQ">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Axn-x8-8zq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="XgJ-28-c2V" userLabel="Exit" sceneMemberID="exit"/>

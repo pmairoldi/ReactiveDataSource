@@ -39,6 +39,10 @@ class CollectionViewController: UICollectionViewController {
             }
         })
     }
+    
+    deinit {
+        print("controller deinit")
+    }
 }
 
 extension CollectionViewController {

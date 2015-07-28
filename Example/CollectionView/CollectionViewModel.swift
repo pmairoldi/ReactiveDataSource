@@ -12,4 +12,8 @@ class CollectionViewModel {
         
         dataSource = CollectionViewDataSource(collectionView: collectionView, dataProducer: dataProducer, configuration: configuration)
     }
+    
+    deinit {
+        print("viewmodel deinit")
+    }
 }

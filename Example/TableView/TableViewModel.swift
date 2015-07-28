@@ -12,4 +12,8 @@ class TableViewModel {
         
         dataSource = TableViewDataSource(tableView: tableView, dataProducer: dataProducer, configuration: configuration)
     }
+    
+    deinit {
+        print("viewmodel deinit")
+    }
 }

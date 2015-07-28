@@ -32,6 +32,10 @@ class TableViewController: UITableViewController {
             }
         })
     }
+    
+    deinit {
+        print("controller deinit")
+    }
 }
 
 extension TableViewController {

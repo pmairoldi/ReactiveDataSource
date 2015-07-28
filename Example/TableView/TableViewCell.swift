@@ -8,7 +8,7 @@ class TableViewCell: UITableViewCell, Bindable {
     @IBOutlet weak var buttonOne: UIButton?
     @IBOutlet weak var buttonTwo: UIButton?
     
-    func bind<T>(viewModel: T, pushback: Action<Actionable, Actionable, NoError>) {
+    func bind<T>(viewModel: T, pushback: Action<Actionable, Actionable, NoError>, reuse: Signal<Void, NoError>?) {
         
         guard let viewModel = viewModel as? CellViewModel else {
             return
@@ -27,17 +27,20 @@ class TableViewCell: UITableViewCell, Bindable {
         buttonOne.addTarget(viewModel.buttonOneAction.unsafeCocoaAction, action: CocoaAction.selector, forControlEvents: UIControlEvents.TouchUpInside)
         buttonTwo.addTarget(viewModel.buttonTwoAction.unsafeCocoaAction, action: CocoaAction.selector, forControlEvents: UIControlEvents.TouchUpInside)
         
-        rac_prepareForReuse.startWithSignal { signal, disposable in
-            viewModel.buttonOneAction.values.takeUntil(signal).observe(next: { pushback.apply(CellActions.Button1("Tapped Button 1 in Cell \(viewModel.text.value)")).start() })
-            viewModel.buttonTwoAction.values.takeUntil(signal).observe(next: { pushback.apply(CellActions.Button2("Tapped Button 2 in Cell \(viewModel.text.value)")).start() })
+        guard let reuse = reuse else {
+            return
         }
+        
+        viewModel.buttonOneAction.values.takeUntil(reuse).observe(next: { pushback.apply(CellActions.Button1("Tapped Button 1 in Cell \(viewModel.text.value)")).start() })
+        viewModel.buttonTwoAction.values.takeUntil(reuse).observe(next: { pushback.apply(CellActions.Button2("Tapped Button 2 in Cell \(viewModel.text.value)")).start() })
     }
     
-    override func prepareForReuse() {
-        
-        super.prepareForReuse()
-        
+    func unbind() {
         buttonOne?.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.TouchUpInside)
         buttonTwo?.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.TouchUpInside)
+    }
+    
+    deinit {
+        print("cell deinit")
     }
 }

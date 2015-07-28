@@ -6,5 +6,6 @@ public protocol Actionable {
 }
 
 public protocol Bindable {
-    func bind<T>(viewModel: T, pushback: Action<Actionable, Actionable, NoError>)
+    func bind<T>(viewModel: T, pushback: Action<Actionable, Actionable, NoError>, reuse: Signal<Void, NoError>?)
+    func unbind()
 }
