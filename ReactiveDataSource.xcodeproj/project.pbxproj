@@ -34,6 +34,7 @@
 		064199D41B64397700424C84 /* Association.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064199D31B64397700424C84 /* Association.swift */; };
 		064199D71B64399300424C84 /* UIKit+ReactiveCocoa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064199D61B64399300424C84 /* UIKit+ReactiveCocoa.swift */; };
 		064DBF851B65D00600285867 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064DBF841B65D00600285867 /* UIViewController+Extensions.swift */; };
+		06D9D6D61B6B1BF50054E9C5 /* UITableViewHeaderFooterView+ReactiveCocoa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9D6D51B6B1BF50054E9C5 /* UITableViewHeaderFooterView+ReactiveCocoa.swift */; };
 		06E6358A1B65848B00C35246 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E635891B65848B00C35246 /* Protocols.swift */; };
 		06E6358E1B65A0BE00C35246 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E6358D1B65A0BE00C35246 /* Data.swift */; };
 		06E635901B65A10200C35246 /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E6358F1B65A10200C35246 /* CollectionViewDataSource.swift */; };
@@ -126,6 +127,7 @@
 		064DBF841B65D00600285867 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		06B97DF71B6432F9005D2C86 /* ReactiveDataSource.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ReactiveDataSource.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		06B97E011B6432F9005D2C86 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		06D9D6D51B6B1BF50054E9C5 /* UITableViewHeaderFooterView+ReactiveCocoa.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewHeaderFooterView+ReactiveCocoa.swift"; sourceTree = "<group>"; };
 		06E635891B65848B00C35246 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		06E6358D1B65A0BE00C35246 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		06E6358F1B65A10200C35246 /* CollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSource.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 				0613F0041B643CB30051384D /* Array+Extensions.swift */,
 				0613F00A1B643CB30051384D /* UITableViewCell+ReactiveCocoa.swift */,
 				06E635911B65BA3A00C35246 /* UICollectionReusableView+ReactiveCocoa.swift */,
+				06D9D6D51B6B1BF50054E9C5 /* UITableViewHeaderFooterView+ReactiveCocoa.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				06E6358A1B65848B00C35246 /* Protocols.swift in Sources */,
+				06D9D6D61B6B1BF50054E9C5 /* UITableViewHeaderFooterView+ReactiveCocoa.swift in Sources */,
 				06E6358E1B65A0BE00C35246 /* Data.swift in Sources */,
 				0613F00B1B643CB30051384D /* Array+Extensions.swift in Sources */,
 				06E635921B65BA3A00C35246 /* UICollectionReusableView+ReactiveCocoa.swift in Sources */,

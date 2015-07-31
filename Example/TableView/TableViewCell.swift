@@ -8,7 +8,7 @@ class TableViewCell: UITableViewCell, Bindable {
     @IBOutlet weak var buttonOne: UIButton?
     @IBOutlet weak var buttonTwo: UIButton?
     
-    func bind<T>(viewModel: T, pushback: Action<Actionable, Actionable, NoError>, reuse: Signal<Void, NoError>?) {
+    func bind<T>(viewModel: T, pushback: Action<Actionable, Actionable, NoError>?, reuse: Signal<Void, NoError>?) {
         
         guard let viewModel = viewModel as? CellViewModel else {
             return
@@ -31,8 +31,8 @@ class TableViewCell: UITableViewCell, Bindable {
             return
         }
         
-        viewModel.buttonOneAction.values.takeUntil(reuse).observe(next: { pushback.apply(CellActions.Button1("Tapped Button 1 in Cell \(viewModel.text.value)")).start() })
-        viewModel.buttonTwoAction.values.takeUntil(reuse).observe(next: { pushback.apply(CellActions.Button2("Tapped Button 2 in Cell \(viewModel.text.value)")).start() })
+        viewModel.buttonOneAction.values.takeUntil(reuse).observe(next: { pushback?.apply(CellActions.Button1("Tapped Button 1 in Cell \(viewModel.text.value)")).start() })
+        viewModel.buttonTwoAction.values.takeUntil(reuse).observe(next: { pushback?.apply(CellActions.Button2("Tapped Button 2 in Cell \(viewModel.text.value)")).start() })
     }
     
     func unbind() {
