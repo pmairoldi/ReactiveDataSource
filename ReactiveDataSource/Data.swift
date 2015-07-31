@@ -1,7 +1,7 @@
 import Foundation
 import ReactiveCocoa
 
-internal class Data<T> {
+internal class RowData<T> {
     
     internal let property = MutableProperty([[T]]())
     
@@ -18,5 +18,14 @@ internal class Data<T> {
     
     func item(atIndexPath indexPath: NSIndexPath) -> T? {
         return property.value.atIndex(indexPath.section)?.atIndex(indexPath.row)
+    }
+}
+
+internal class SectionData<T> {
+    
+    internal let property = MutableProperty([T]())
+    
+    func item(inSection section: Int) -> T? {
+        return property.value.atIndex(section)
     }
 }

@@ -46,6 +46,7 @@
 		06E635B21B65BE2400C35246 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E635AC1B65BE2400C35246 /* TableViewController.swift */; };
 		06E635B31B65BE2400C35246 /* TableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E635AD1B65BE2400C35246 /* TableViewModel.swift */; };
 		06E635B51B65BE9300C35246 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E635B41B65BE9300C35246 /* Model.swift */; };
+		559478F21B6BFE20005493DD /* TableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559478F11B6BFE20005493DD /* TableViewDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +140,7 @@
 		06E635AC1B65BE2400C35246 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		06E635AD1B65BE2400C35246 /* TableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewModel.swift; sourceTree = "<group>"; };
 		06E635B41B65BE9300C35246 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		559478F11B6BFE20005493DD /* TableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +182,7 @@
 				06E635891B65848B00C35246 /* Protocols.swift */,
 				06E6358D1B65A0BE00C35246 /* Data.swift */,
 				0613F0091B643CB30051384D /* TableViewDataSource.swift */,
+				559478F11B6BFE20005493DD /* TableViewDelegate.swift */,
 				06E6358F1B65A10200C35246 /* CollectionViewDataSource.swift */,
 				06E635931B65BA5400C35246 /* Extensions */,
 				0613F0061B643CB30051384D /* Supporting Files */,
@@ -466,6 +469,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				559478F21B6BFE20005493DD /* TableViewDelegate.swift in Sources */,
 				06E6358A1B65848B00C35246 /* Protocols.swift in Sources */,
 				06D9D6D61B6B1BF50054E9C5 /* UITableViewHeaderFooterView+ReactiveCocoa.swift in Sources */,
 				06E6358E1B65A0BE00C35246 /* Data.swift in Sources */,

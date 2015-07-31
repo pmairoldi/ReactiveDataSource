@@ -8,7 +8,7 @@ class TableViewCell: UITableViewCell, Bindable {
     @IBOutlet weak var buttonOne: UIButton?
     @IBOutlet weak var buttonTwo: UIButton?
     
-    func bind<T>(viewModel: T, pushback: Action<Actionable, Actionable, NoError>?, reuse: Signal<Void, NoError>?) {
+    func bind(viewModel: Reusable, pushback: Action<Actionable, Actionable, NoError>?, reuse: Signal<Void, NoError>?) {
         
         guard let viewModel = viewModel as? CellViewModel else {
             return
@@ -42,5 +42,48 @@ class TableViewCell: UITableViewCell, Bindable {
     
     deinit {
         print("cell deinit")
+    }
+}
+
+class TableViewHeader: UITableViewHeaderFooterView, Bindable {
+    
+    var titleLabel: UILabel?
+    
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    func commonInit() {
+        titleLabel = UILabel(frame: CGRectMake(0, 0, 300, 44))
+        self.contentView.addSubview(titleLabel!)
+    }
+    
+    func bind(viewModel: Reusable, pushback: Action<Actionable, Actionable, NoError>?, reuse: Signal<Void, NoError>?) {
+        
+        guard let viewModel = viewModel as? HeaderViewModel else {
+            return
+        }
+        
+        guard
+            let titleLabel = titleLabel
+            else {
+                return
+        }
+        
+        titleLabel.rac_text <~ viewModel.text
+    }
+    
+    func unbind() {
+
+    }
+    
+    deinit {
+        print("header deinit")
     }
 }

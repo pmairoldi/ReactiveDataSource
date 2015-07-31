@@ -10,13 +10,13 @@
         <scene sceneID="sil-OC-CC0">
             <objects>
                 <tableViewController id="kiu-Y6-Sbf" customClass="TableViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="OJ7-uh-zp3">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="44" sectionFooterHeight="22" id="OJ7-uh-zp3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="N1S-ch-2wU" customClass="TableViewCell" customModule="Example" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="86" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="108" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N1S-ch-2wU" id="CUe-YH-njF">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -65,13 +65,12 @@
                     <navigationItem key="navigationItem" title="Reactive Table View" id="29h-8t-WRY">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="APw-H3-u3F">
                             <connections>
-                                <segue destination="XgJ-28-c2V" kind="unwind" unwindAction="unwind:" id="YFA-OM-mUu"/>
+                                <action selector="dismiss" destination="kiu-Y6-Sbf" id="xdb-A7-bx7"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Axn-x8-8zq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="XgJ-28-c2V" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-894" y="1521"/>
         </scene>
@@ -145,13 +144,12 @@
                     <navigationItem key="navigationItem" title="Reactive Collection View" id="fyK-BK-OHK">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="TDw-UR-6D6">
                             <connections>
-                                <segue destination="KdU-QB-8VF" kind="unwind" unwindAction="unwind:" id="3rh-SQ-hf0"/>
+                                <action selector="dismiss" destination="Tkt-7L-058" id="6q6-zs-lAJ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pD2-AB-dVu" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="KdU-QB-8VF" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-224" y="1521"/>
         </scene>
@@ -223,7 +221,7 @@
         <!--Navigation Controller-->
         <scene sceneID="lcg-eA-5tA">
             <objects>
-                <navigationController id="hBc-C8-rdv" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ReactiveTableView" id="hBc-C8-rdv" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Koo-59-X9X">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -239,7 +237,7 @@
         <!--Navigation Controller-->
         <scene sceneID="yMo-WB-2Gh">
             <objects>
-                <navigationController id="3oG-fG-aPy" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ReactiveCollectionView" id="3oG-fG-aPy" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="znc-yi-rlQ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

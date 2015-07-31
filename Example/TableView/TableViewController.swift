@@ -2,7 +2,7 @@ import UIKit
 import ReactiveDataSource
 import ReactiveCocoa
 
-class TableViewController: UITableViewController {
+class TableViewController: UITableViewController, UITableViewDataSourceProxy {
     
     /// Make sure that the dataSource is a strong reference
     /// UITableView's dataSource property is marked weak
@@ -17,24 +17,46 @@ class TableViewController: UITableViewController {
         }
         
         model = TableViewModel(tableView: tableView)
+        model?.dataSource.proxy = self
+        
+        tableView.registerClass(TableViewHeader.self, forHeaderFooterViewReuseIdentifier: "Header")
         
         tableView.dataSource = model?.dataSource
-        tableView.delegate = self
+        tableView.delegate = model?.delegate
         
         model?.dataSource.pushbackSignal.observe(next: { [weak self] value in
-            switch value {
-            case let CellActions.Button1(x):
+            switch value as! CellActions {
+            case let .Button1(x):
                 self?.displayMessage("Action", message: x)
-            case let CellActions.Button2(x):
+            case let .Button2(x):
                 self?.displayMessage("Action", message: x)
-            default:
-                print("noop")
             }
         })
+        
+        model?.delegate.selectionSignal?.observe(next: { [weak self] value in
+            
+            let navController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ReactiveTableView") as! UINavigationController
+            
+            switch value as! SelectionActions  {
+            case .Push:
+                self?.navigationController?.pushViewController(navController.viewControllers[0], animated: true)
+            case .Pop:
+                self?.navigationController?.presentViewController(navController, animated: true, completion: nil)
+            }
+        })
+        
     }
     
     deinit {
         print("controller deinit")
+    }
+}
+
+extension TableViewController {
+    
+    func tableViewProxy(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        
+        return true
     }
 }
 

@@ -12,4 +12,13 @@ extension UIViewController {
         
         self.presentViewController(alert, animated: true, completion: nil)
     }
+    
+    @IBAction func dismiss() {
+        
+        guard let navigationController = self.navigationController else {
+            return
+        }
+        
+        navigationController.dismissViewControllerAnimated(true, completion: nil)
+    }
 }

@@ -6,7 +6,7 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
     public let pushbackSignal: Signal<Actionable, NoError>
     
     private let pushbackAction: Action<Actionable, Actionable, NoError>
-    private let data = Data<Reusable>()
+    private let data = RowData<Reusable>()
     
     public init(collectionView: UICollectionView, dataProducer: SignalProducer<[[Reusable]], NoError>) {
         self.pushbackAction = Action<Actionable, Actionable, NoError> { SignalProducer<Actionable, NoError>(value: $0) }
@@ -21,7 +21,7 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
     }
     
     convenience public init(collectionView: UICollectionView, dataProducer: SignalProducer<[Reusable], NoError>) {
-        self.init(collectionView: collectionView, dataProducer: dataProducer.map { value in [value] })
+        self.init(collectionView: collectionView, dataProducer: dataProducer.map { [$0] })
     }
     
     public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
