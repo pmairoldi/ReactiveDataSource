@@ -4,13 +4,11 @@ import ReactiveDataSource
 
 class CollectionViewModel {
     
-    let dataSource: CollectionViewDataSource<CellViewModel>
+    let dataSource: CollectionViewDataSource
     
     init(collectionView: UICollectionView) {
         
-        let configuration = CollectionViewConfiguration(reuseIdentifier: "CollectionViewCell")
-        
-        dataSource = CollectionViewDataSource(collectionView: collectionView, dataProducer: dataProducer, configuration: configuration)
+        dataSource = CollectionViewDataSource(collectionView: collectionView, dataProducer: dataProducer)
     }
     
     deinit {

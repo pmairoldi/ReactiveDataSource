@@ -6,6 +6,10 @@ public protocol Actionable {
 }
 
 public protocol Bindable {
-    func bind<T>(viewModel: T, pushback: Action<Actionable, Actionable, NoError>?, reuse: Signal<Void, NoError>?)
+    func bind(viewModel: Reusable, pushback: Action<Actionable, Actionable, NoError>?, reuse: Signal<Void, NoError>?)
     func unbind()
+}
+
+public protocol Reusable {
+    var reuseIdentifier: String { get }
 }

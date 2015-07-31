@@ -1,25 +1,14 @@
 import UIKit
 import ReactiveCocoa
 
-public struct CollectionViewConfiguration {
-    
-    private let reuseIdentifier: String
-    
-    public init(reuseIdentifier: String) {
-        self.reuseIdentifier = reuseIdentifier
-    }
-}
-
-public class CollectionViewDataSource<T>: NSObject, UICollectionViewDataSource {
+public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
     public let pushbackSignal: Signal<Actionable, NoError>
     
-    private let configuration: CollectionViewConfiguration
     private let pushbackAction: Action<Actionable, Actionable, NoError>
-    private let data = Data<T>()
+    private let data = Data<Reusable>()
     
-    public init(collectionView: UICollectionView, dataProducer: SignalProducer<[[T]], NoError>, configuration: CollectionViewConfiguration) {
-        self.configuration = configuration
+    public init(collectionView: UICollectionView, dataProducer: SignalProducer<[[Reusable]], NoError>) {
         self.pushbackAction = Action<Actionable, Actionable, NoError> { SignalProducer<Actionable, NoError>(value: $0) }
         self.pushbackSignal = self.pushbackAction.values
         
@@ -31,8 +20,8 @@ public class CollectionViewDataSource<T>: NSObject, UICollectionViewDataSource {
         })
     }
     
-    convenience public init(collectionView: UICollectionView, dataProducer: SignalProducer<[T], NoError>, configuration: CollectionViewConfiguration) {
-        self.init(collectionView: collectionView, dataProducer: dataProducer.map { value in [value] }, configuration: configuration)
+    convenience public init(collectionView: UICollectionView, dataProducer: SignalProducer<[Reusable], NoError>) {
+        self.init(collectionView: collectionView, dataProducer: dataProducer.map { value in [value] })
     }
     
     public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -40,11 +29,15 @@ public class CollectionViewDataSource<T>: NSObject, UICollectionViewDataSource {
     }
     
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+
+        guard let item = data.item(atIndexPath: indexPath) else {
+            print("no data at indexPath")
+            return UICollectionViewCell()
+        }
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(configuration.reuseIdentifier, forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(item.reuseIdentifier, forIndexPath: indexPath)
         
-        if let item = data.item(atIndexPath: indexPath), let bindableCell = cell as? Bindable {
-            
+        if let bindableCell = cell as? Bindable {
             cell.rac_prepareForReuse.startWithSignal { signal, disposable in
                 bindableCell.bind(item, pushback: pushbackAction, reuse: signal)
                 signal.takeUntil(signal).observe(completed: { [weak cell] in let bindedCell = cell as? Bindable; bindedCell?.unbind() })

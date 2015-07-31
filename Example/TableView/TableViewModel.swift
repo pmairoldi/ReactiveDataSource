@@ -4,13 +4,11 @@ import ReactiveDataSource
 
 class TableViewModel {
     
-    let dataSource: TableViewDataSource<CellViewModel>
+    let dataSource: TableViewDataSource
     
     init(tableView: UITableView) {
         
-        let configuration = TableViewConfiguration(reuseIdentifier: "TableViewCell")
-        
-        dataSource = TableViewDataSource(tableView: tableView, dataProducer: dataProducer, configuration: configuration)
+        dataSource = TableViewDataSource(tableView: tableView, dataProducer: dataProducer)
     }
     
     deinit {
