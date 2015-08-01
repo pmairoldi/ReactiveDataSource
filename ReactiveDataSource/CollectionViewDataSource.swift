@@ -7,7 +7,9 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
     private let pushbackAction: Action<Actionable, Actionable, NoError>
     private let data = RowData<Reusable>()
-    
+    private let NoCell = UICollectionViewCell()
+    private let NoSupplementaryElement = UICollectionReusableView()
+
     public init(collectionView: UICollectionView, dataProducer: SignalProducer<[[Reusable]], NoError>) {
         self.pushbackAction = Action<Actionable, Actionable, NoError> { SignalProducer<Actionable, NoError>(value: $0) }
         self.pushbackSignal = self.pushbackAction.values
@@ -31,8 +33,7 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 
         guard let item = data.item(atIndexPath: indexPath) else {
-            print("no data at indexPath")
-            return UICollectionViewCell()
+            return NoCell
         }
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(item.reuseIdentifier, forIndexPath: indexPath)
@@ -49,6 +50,24 @@ public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
     public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return data.numberOfSections()
+    }
+    
+    public func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        
+        guard let item = data.item(atIndexPath: indexPath) as? Supplementable else {
+            return NoSupplementaryElement
+        }
+        
+        let cell = collectionView.dequeueReusableSupplementaryViewOfKind(item.supplementaryElementKind, withReuseIdentifier: item.supplementaryReuseIdentifier, forIndexPath: indexPath)
+        
+        if let bindableCell = cell as? Bindable {
+            cell.rac_prepareForReuse.startWithSignal { signal, disposable in
+                bindableCell.bind(item, pushback: pushbackAction, reuse: signal)
+                signal.takeUntil(signal).observe(completed: { [weak cell] in let bindedCell = cell as? Bindable; bindedCell?.unbind() })
+            }
+        }
+        
+        return cell
     }
 }
 

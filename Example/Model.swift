@@ -2,7 +2,7 @@ import Foundation
 import ReactiveCocoa
 import ReactiveDataSource
 
-struct CellViewModel: Reusable {
+struct CellViewModel: Reusable, Selectable {
     let text: MutableProperty<String>
     let buttonOneAction: Action<AnyObject, Void, NoError>
     let buttonTwoAction: Action<AnyObject, Void, NoError>
@@ -16,9 +16,18 @@ struct CellViewModel: Reusable {
     var reuseIdentifier: String {
         return "Cell"
     }
+    
+    func select(indexPath: NSIndexPath, action: Action<Actionable, Actionable, NoError>?) {
+      
+        if indexPath.row % 2 == 0 {
+            action?.apply(SelectionActions.Push).start()
+        } else {
+            action?.apply(SelectionActions.Pop).start()
+        }
+    }
 }
 
-struct HeaderViewModel: ReusableHeader {
+struct HeaderViewModel: Reusable, Adjustable {
     let text: MutableProperty<String>
     
     init(value: Int) {
@@ -37,7 +46,6 @@ struct HeaderViewModel: ReusableHeader {
         return 100.0
     }
 }
-
 
 enum CellActions: Actionable {
     case Button1(String)

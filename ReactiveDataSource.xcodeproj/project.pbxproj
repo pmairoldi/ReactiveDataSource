@@ -20,6 +20,7 @@
 		0613F02B1B6441040051384D /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0613F0231B6440550051384D /* Quick.framework */; };
 		0613F02C1B6441110051384D /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0613F0221B6440550051384D /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0613F02D1B6441110051384D /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0613F0231B6440550051384D /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		062120861B6D542C00CCFE12 /* CollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062120851B6D542C00CCFE12 /* CollectionViewDelegate.swift */; };
 		0641999C1B6433C400424C84 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0641999A1B6433C400424C84 /* ReactiveCocoa.framework */; };
 		0641999F1B6434C200424C84 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0641999B1B6433C400424C84 /* Result.framework */; };
 		064199A91B64351900424C84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064199A81B64351900424C84 /* AppDelegate.swift */; };
@@ -114,6 +115,7 @@
 		0613F0131B643CC10051384D /* ReactiveTableViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactiveTableViewTests.swift; sourceTree = "<group>"; };
 		0613F0221B6440550051384D /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		0613F0231B6440550051384D /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		062120851B6D542C00CCFE12 /* CollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewDelegate.swift; sourceTree = "<group>"; };
 		0641999A1B6433C400424C84 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		0641999B1B6433C400424C84 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		064199A61B64351900424C84 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -184,6 +186,7 @@
 				0613F0091B643CB30051384D /* TableViewDataSource.swift */,
 				559478F11B6BFE20005493DD /* TableViewDelegate.swift */,
 				06E6358F1B65A10200C35246 /* CollectionViewDataSource.swift */,
+				062120851B6D542C00CCFE12 /* CollectionViewDelegate.swift */,
 				06E635931B65BA5400C35246 /* Extensions */,
 				0613F0061B643CB30051384D /* Supporting Files */,
 			);
@@ -479,6 +482,7 @@
 				0613F0101B643CB30051384D /* UITableViewCell+ReactiveCocoa.swift in Sources */,
 				0613F00C1B643CB30051384D /* Association.swift in Sources */,
 				06E635901B65A10200C35246 /* CollectionViewDataSource.swift in Sources */,
+				062120861B6D542C00CCFE12 /* CollectionViewDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -2,7 +2,7 @@ import UIKit
 import ReactiveDataSource
 import ReactiveCocoa
 
-class TableViewController: UITableViewController, UITableViewDataSourceProxy {
+class TableViewController: UITableViewController {
     
     /// Make sure that the dataSource is a strong reference
     /// UITableView's dataSource property is marked weak
@@ -17,7 +17,6 @@ class TableViewController: UITableViewController, UITableViewDataSourceProxy {
         }
         
         model = TableViewModel(tableView: tableView)
-        model?.dataSource.proxy = self
         
         tableView.registerClass(TableViewHeader.self, forHeaderFooterViewReuseIdentifier: "Header")
         
@@ -33,7 +32,7 @@ class TableViewController: UITableViewController, UITableViewDataSourceProxy {
             }
         })
         
-        model?.delegate.selectionSignal?.observe(next: { [weak self] value in
+        model?.delegate.selectionSignal.observe(next: { [weak self] value in
             
             let navController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ReactiveTableView") as! UINavigationController
             
