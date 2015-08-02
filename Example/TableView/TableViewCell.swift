@@ -8,7 +8,7 @@ class TableViewCell: UITableViewCell, Bindable {
     @IBOutlet weak var buttonOne: UIButton?
     @IBOutlet weak var buttonTwo: UIButton?
     
-    func bind(viewModel: Reusable, pushback: Action<Actionable, Actionable, NoError>?, reuse: Signal<Void, NoError>?) {
+    func bind<T>(viewModel: T, pushback: Action<Actionable, Actionable, NoError>?, reuse: Signal<Void, NoError>?) {
         
         guard let viewModel = viewModel as? CellViewModel else {
             return
@@ -64,7 +64,7 @@ class TableViewHeader: UITableViewHeaderFooterView, Bindable {
         self.contentView.addSubview(titleLabel!)
     }
     
-    func bind(viewModel: Reusable, pushback: Action<Actionable, Actionable, NoError>?, reuse: Signal<Void, NoError>?) {
+    func bind<T>(viewModel: T, pushback: Action<Actionable, Actionable, NoError>?, reuse: Signal<Void, NoError>?) {
         
         guard let viewModel = viewModel as? HeaderViewModel else {
             return
