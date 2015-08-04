@@ -3,7 +3,7 @@ import ReactiveCocoa
 
 public class CollectionViewDelegate: NSObject, UICollectionViewDelegate {
     
-    public let selectionSignal: Signal<Actionable, NoError>?
+    public let selectionSignal: Signal<Actionable, NoError>
     
     private let selectionAction: Action<Actionable, Actionable, NoError>
     private let data = RowData<Reusable>()

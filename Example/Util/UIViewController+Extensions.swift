@@ -14,11 +14,6 @@ extension UIViewController {
     }
     
     @IBAction func dismiss() {
-        
-        guard let navigationController = self.navigationController else {
-            return
-        }
-        
-        navigationController.dismissViewControllerAnimated(true, completion: nil)
+        navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
 }
