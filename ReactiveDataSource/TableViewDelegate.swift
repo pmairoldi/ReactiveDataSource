@@ -137,35 +137,59 @@ public class TableViewDelegate: NSObject, UITableViewDelegate {
 
 extension TableViewDelegate {
     
-    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>, headerProducer: SignalProducer<[Reusable], NoError>? = nil, footerProducer: SignalProducer<[Reusable], NoError>? = nil) {
+    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>) {
+        self.init(dataProducer: dataProducer.map { [$0] }, headerProducer: nil, footerProducer: nil)
+    }
+    
+    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>, headerProducer: SignalProducer<[Reusable], NoError>?, footerProducer: SignalProducer<[Reusable], NoError>?) {
         self.init(dataProducer: dataProducer.map { [$0] }, headerProducer: headerProducer, footerProducer: footerProducer)
     }
     
-    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>, headerProducer: SignalProducer<Reusable, NoError>? = nil, footerProducer: SignalProducer<[Reusable], NoError>? = nil) {
-        self.init(dataProducer: dataProducer.map { [$0] }, headerProducer: headerProducer?.map { [$0] }, footerProducer: footerProducer)
+    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>, headerProducer: SignalProducer<[Reusable], NoError>?) {
+        self.init(dataProducer: dataProducer.map { [$0] }, headerProducer: headerProducer, footerProducer: nil)
     }
     
-    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>, headerProducer: SignalProducer<[Reusable], NoError>? = nil, footerProducer: SignalProducer<Reusable, NoError>? = nil) {
-        self.init(dataProducer: dataProducer.map { [$0] }, headerProducer: headerProducer, footerProducer: footerProducer?.map { [$0] })
+    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>, footerProducer: SignalProducer<[Reusable], NoError>?) {
+        self.init(dataProducer: dataProducer.map { [$0] }, headerProducer: nil, footerProducer: footerProducer)
     }
     
-    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>, headerProducer: SignalProducer<Reusable, NoError>? = nil, footerProducer: SignalProducer<Reusable, NoError>? = nil) {
+    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>, headerProducer: SignalProducer<Reusable, NoError>?, footerProducer: SignalProducer<Reusable, NoError>?) {
         self.init(dataProducer: dataProducer.map { [$0] }, headerProducer: headerProducer?.map { [$0] }, footerProducer: footerProducer?.map { [$0] })
     }
+    
+    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>, headerProducer: SignalProducer<Reusable, NoError>?) {
+        self.init(dataProducer: dataProducer.map { [$0] }, headerProducer: headerProducer?.map { [$0] }, footerProducer: nil)
+    }
+    
+    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>, footerProducer: SignalProducer<Reusable, NoError>?) {
+        self.init(dataProducer: dataProducer.map { [$0] }, headerProducer: nil, footerProducer: footerProducer?.map { [$0] })
+    }
+    
+    convenience public init(dataProducer: SignalProducer<Reusable, NoError>) {
+        self.init(dataProducer: dataProducer.map { [[$0]] }, headerProducer: nil, footerProducer: nil)
+    }
 
-    convenience public init(dataProducer: SignalProducer<Reusable, NoError>, headerProducer: SignalProducer<[Reusable], NoError>? = nil, footerProducer: SignalProducer<[Reusable], NoError>? = nil) {
+    convenience public init(dataProducer: SignalProducer<Reusable, NoError>, headerProducer: SignalProducer<[Reusable], NoError>?, footerProducer: SignalProducer<[Reusable], NoError>?) {
         self.init(dataProducer: dataProducer.map { [[$0]] }, headerProducer: headerProducer, footerProducer: footerProducer)
     }
     
-    convenience public init(dataProducer: SignalProducer<Reusable, NoError>, headerProducer: SignalProducer<Reusable, NoError>? = nil, footerProducer: SignalProducer<[Reusable], NoError>? = nil) {
-        self.init(dataProducer: dataProducer.map { [[$0]] }, headerProducer: headerProducer?.map { [$0] }, footerProducer: footerProducer)
+    convenience public init(dataProducer: SignalProducer<Reusable, NoError>, headerProducer: SignalProducer<[Reusable], NoError>?) {
+        self.init(dataProducer: dataProducer.map { [[$0]] }, headerProducer: headerProducer, footerProducer: nil)
     }
     
-    convenience public init(dataProducer: SignalProducer<Reusable, NoError>, headerProducer: SignalProducer<[Reusable], NoError>? = nil, footerProducer: SignalProducer<Reusable, NoError>? = nil) {
-        self.init(dataProducer: dataProducer.map { [[$0]] }, headerProducer: headerProducer, footerProducer: footerProducer?.map { [$0] })
+    convenience public init(dataProducer: SignalProducer<Reusable, NoError>, footerProducer: SignalProducer<[Reusable], NoError>?) {
+        self.init(dataProducer: dataProducer.map { [[$0]] }, headerProducer: nil, footerProducer: footerProducer)
     }
     
-    convenience public init(dataProducer: SignalProducer<Reusable, NoError>, headerProducer: SignalProducer<Reusable, NoError>? = nil, footerProducer: SignalProducer<Reusable, NoError>? = nil) {
+    convenience public init(dataProducer: SignalProducer<Reusable, NoError>, headerProducer: SignalProducer<Reusable, NoError>?, footerProducer: SignalProducer<Reusable, NoError>?) {
         self.init(dataProducer: dataProducer.map { [[$0]] }, headerProducer: headerProducer?.map { [$0] }, footerProducer: footerProducer?.map { [$0] })
+    }
+    
+    convenience public init(dataProducer: SignalProducer<Reusable, NoError>, headerProducer: SignalProducer<Reusable, NoError>?) {
+        self.init(dataProducer: dataProducer.map { [[$0]] }, headerProducer: headerProducer?.map { [$0] }, footerProducer: nil)
+    }
+    
+    convenience public init(dataProducer: SignalProducer<Reusable, NoError>, footerProducer: SignalProducer<Reusable, NoError>?) {
+        self.init(dataProducer: dataProducer.map { [[$0]] }, headerProducer: nil, footerProducer: footerProducer?.map { [$0] })
     }
 }

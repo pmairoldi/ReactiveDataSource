@@ -28,7 +28,7 @@ public class CollectionViewDelegate: NSObject, UICollectionViewDelegate {
     }
 }
 
-extension TableViewDelegate {
+extension CollectionViewDelegate {
     
     convenience public init(dataProducer: SignalProducer<[Reusable], NoError>) {
         self.init(dataProducer: dataProducer.map { [$0] })

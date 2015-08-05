@@ -8,7 +8,6 @@ class TableViewModel {
     let delegate: TableViewDelegate
     
     init() {
-        
         dataSource = TableViewDataSource(dataProducer: dataProducer)
         delegate = TableViewDelegate(dataProducer: dataProducer, headerProducer: headerProducer)
     }
