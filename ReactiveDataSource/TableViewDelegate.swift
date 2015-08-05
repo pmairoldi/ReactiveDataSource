@@ -15,37 +15,38 @@ public class TableViewDelegate: NSObject, UITableViewDelegate {
     
     public init(dataProducer: SignalProducer<[[Reusable]], NoError>, headerProducer: SignalProducer<[Reusable], NoError>? = nil, footerProducer: SignalProducer<[Reusable], NoError>? = nil) {
         
-        self.selectionAction = Action<Actionable, Actionable, NoError> { SignalProducer<Actionable, NoError>(value: $0) }
-        self.pushbackAction = Action<Actionable, Actionable, NoError> { SignalProducer<Actionable, NoError>(value: $0) }
+        selectionAction = Action<Actionable, Actionable, NoError> { SignalProducer<Actionable, NoError>(value: $0) }
+        pushbackAction = Action<Actionable, Actionable, NoError> { SignalProducer<Actionable, NoError>(value: $0) }
 
-        self.selectionSignal = self.selectionAction.values
-        self.pushbackSignal = self.pushbackAction.values
+        selectionSignal = selectionAction.values
+        pushbackSignal = pushbackAction.values
 
-        self.data.property <~ dataProducer
+        data.property <~ dataProducer
         
         if let headerProducer = headerProducer {
-            self.headerData.property <~ headerProducer
+            headerData.property <~ headerProducer
         }
         
         if let footerProducer = footerProducer {
-            self.footerData.property <~ footerProducer
+            footerData.property <~ footerProducer
         }
 
         super.init()
     }
-    
-    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>, headerProducer: SignalProducer<[Reusable], NoError>? = nil, footerProducer: SignalProducer<[Reusable], NoError>? = nil) {
-        self.init(dataProducer: dataProducer.map { [$0] }, headerProducer: headerProducer, footerProducer: footerProducer)
-    }
-    
+
     private func tableView(tableView: UITableView, headerFooterViewForItem item: Reusable) -> UIView? {
         
         let view = tableView.dequeueReusableHeaderFooterViewWithIdentifier(item.reuseIdentifier)
         
         if let bindableView = view as? Bindable {
+        
+            let completedClosure: () -> () = { [weak view] in
+                (view as? Bindable)?.unbind()
+            }
+            
             view?.rac_prepareForReuse.startWithSignal { signal, disposable in
                 bindableView.bind(item, pushback: pushbackAction, reuse: signal)
-                signal.takeUntil(signal).observe(completed: { [weak view] in let bindedView = view as? Bindable; bindedView?.unbind() })
+                signal.takeUntil(signal).observe(completed: completedClosure)
             }
         }
 
@@ -131,5 +132,40 @@ public class TableViewDelegate: NSObject, UITableViewDelegate {
         }
         
         return item.estimatedHeight
+    }
+}
+
+extension TableViewDelegate {
+    
+    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>, headerProducer: SignalProducer<[Reusable], NoError>? = nil, footerProducer: SignalProducer<[Reusable], NoError>? = nil) {
+        self.init(dataProducer: dataProducer.map { [$0] }, headerProducer: headerProducer, footerProducer: footerProducer)
+    }
+    
+    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>, headerProducer: SignalProducer<Reusable, NoError>? = nil, footerProducer: SignalProducer<[Reusable], NoError>? = nil) {
+        self.init(dataProducer: dataProducer.map { [$0] }, headerProducer: headerProducer?.map { [$0] }, footerProducer: footerProducer)
+    }
+    
+    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>, headerProducer: SignalProducer<[Reusable], NoError>? = nil, footerProducer: SignalProducer<Reusable, NoError>? = nil) {
+        self.init(dataProducer: dataProducer.map { [$0] }, headerProducer: headerProducer, footerProducer: footerProducer?.map { [$0] })
+    }
+    
+    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>, headerProducer: SignalProducer<Reusable, NoError>? = nil, footerProducer: SignalProducer<Reusable, NoError>? = nil) {
+        self.init(dataProducer: dataProducer.map { [$0] }, headerProducer: headerProducer?.map { [$0] }, footerProducer: footerProducer?.map { [$0] })
+    }
+
+    convenience public init(dataProducer: SignalProducer<Reusable, NoError>, headerProducer: SignalProducer<[Reusable], NoError>? = nil, footerProducer: SignalProducer<[Reusable], NoError>? = nil) {
+        self.init(dataProducer: dataProducer.map { [[$0]] }, headerProducer: headerProducer, footerProducer: footerProducer)
+    }
+    
+    convenience public init(dataProducer: SignalProducer<Reusable, NoError>, headerProducer: SignalProducer<Reusable, NoError>? = nil, footerProducer: SignalProducer<[Reusable], NoError>? = nil) {
+        self.init(dataProducer: dataProducer.map { [[$0]] }, headerProducer: headerProducer?.map { [$0] }, footerProducer: footerProducer)
+    }
+    
+    convenience public init(dataProducer: SignalProducer<Reusable, NoError>, headerProducer: SignalProducer<[Reusable], NoError>? = nil, footerProducer: SignalProducer<Reusable, NoError>? = nil) {
+        self.init(dataProducer: dataProducer.map { [[$0]] }, headerProducer: headerProducer, footerProducer: footerProducer?.map { [$0] })
+    }
+    
+    convenience public init(dataProducer: SignalProducer<Reusable, NoError>, headerProducer: SignalProducer<Reusable, NoError>? = nil, footerProducer: SignalProducer<Reusable, NoError>? = nil) {
+        self.init(dataProducer: dataProducer.map { [[$0]] }, headerProducer: headerProducer?.map { [$0] }, footerProducer: footerProducer?.map { [$0] })
     }
 }

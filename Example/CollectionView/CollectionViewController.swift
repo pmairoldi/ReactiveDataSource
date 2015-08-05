@@ -22,10 +22,10 @@ class CollectionViewController: UICollectionViewController {
         layout.minimumLineSpacing = 10
         layout.itemSize = CGSizeMake(CGRectGetWidth(collectionView.frame)/2 - layout.sectionInset.left - layout.minimumInteritemSpacing/2, CGRectGetWidth(collectionView.frame)/2 - layout.sectionInset.top - layout.minimumLineSpacing/2)
         
-        model = CollectionViewModel(collectionView: collectionView)
+        model = CollectionViewModel()
         
-        collectionView.dataSource = model?.dataSource
-        collectionView.delegate = self
+        collectionView.rac_dataSource = model?.dataSource
+        collectionView.rac_delegate = model?.delegate
         collectionView.collectionViewLayout = layout
         
         model?.dataSource.pushbackSignal.observe(next: { [weak self] value in
@@ -38,16 +38,21 @@ class CollectionViewController: UICollectionViewController {
                 print("noop")
             }
         })
+        
+        model?.delegate.selectionSignal.observe(next: { [weak self] value in
+            
+            let navController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ReactiveCollectionView") as! UINavigationController
+            
+            switch value as! SelectionActions  {
+            case .Push:
+                self?.navigationController?.pushViewController(navController.viewControllers[0], animated: true)
+            case .Pop:
+                self?.navigationController?.presentViewController(navController, animated: true, completion: nil)
+            }
+        })
     }
     
     deinit {
         print("controller deinit")
-    }
-}
-
-extension CollectionViewController {
-    
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        collectionView.deselectItemAtIndexPath(indexPath, animated: true)
     }
 }

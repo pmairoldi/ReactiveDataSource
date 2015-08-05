@@ -16,12 +16,12 @@ class TableViewController: UITableViewController {
             return
         }
         
-        model = TableViewModel(tableView: tableView)
+        model = TableViewModel()
         
         tableView.registerClass(TableViewHeader.self, forHeaderFooterViewReuseIdentifier: "Header")
         
-        tableView.dataSource = model?.dataSource
-        tableView.delegate = model?.delegate
+        tableView.rac_dataSource = model?.dataSource
+        tableView.rac_delegate = model?.delegate
         
         model?.dataSource.pushbackSignal.observe(next: { [weak self] value in
             switch value as! CellActions {
@@ -43,25 +43,9 @@ class TableViewController: UITableViewController {
                 self?.navigationController?.presentViewController(navController, animated: true, completion: nil)
             }
         })
-        
     }
     
     deinit {
         print("controller deinit")
-    }
-}
-
-extension TableViewController {
-    
-    func tableViewProxy(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        
-        return true
-    }
-}
-
-extension TableViewController {
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 }

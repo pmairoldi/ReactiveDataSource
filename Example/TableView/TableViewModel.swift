@@ -7,9 +7,9 @@ class TableViewModel {
     let dataSource: TableViewDataSource
     let delegate: TableViewDelegate
     
-    init(tableView: UITableView) {
+    init() {
         
-        dataSource = TableViewDataSource(tableView: tableView, dataProducer: dataProducer)
+        dataSource = TableViewDataSource(dataProducer: dataProducer)
         delegate = TableViewDelegate(dataProducer: dataProducer, headerProducer: headerProducer)
     }
     

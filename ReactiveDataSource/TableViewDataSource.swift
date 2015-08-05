@@ -4,25 +4,20 @@ import ReactiveCocoa
 public class TableViewDataSource: NSObject, UITableViewDataSource {
     
     public let pushbackSignal: Signal<Actionable, NoError>
-    
+
+    internal let data = RowData<Reusable>()
+
     private let pushbackAction: Action<Actionable, Actionable, NoError>
-    private let data = RowData<Reusable>()
     private let NoCell = UITableViewCell()
     
-    public init(tableView: UITableView, dataProducer: SignalProducer<[[Reusable]], NoError>) {
-        self.pushbackAction = Action<Actionable, Actionable, NoError> { SignalProducer<Actionable, NoError>(value: $0) }
-        self.pushbackSignal = self.pushbackAction.values
+    public init(dataProducer: SignalProducer<[[Reusable]], NoError>) {
+       
+        pushbackAction = Action<Actionable, Actionable, NoError> { SignalProducer<Actionable, NoError>(value: $0) }
+        pushbackSignal = pushbackAction.values
         
-        super.init()
-        
-        self.data.property <~ dataProducer
-        self.data.property.producer.start(next: { _ in
-            tableView.reloadData()
-        })
-    }
+        data.property <~ dataProducer
     
-    convenience public init(tableView: UITableView, dataProducer: SignalProducer<[Reusable], NoError>) {
-        self.init(tableView: tableView, dataProducer: dataProducer.map { [$0] })
+        super.init()
     }
     
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -38,9 +33,14 @@ public class TableViewDataSource: NSObject, UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier(item.reuseIdentifier, forIndexPath: indexPath)
         
         if let bindableCell = cell as? Bindable {
+            
+            let completedClosure: () -> () = { [weak cell] in
+                (cell as? Bindable)?.unbind()
+            }
+            
             cell.rac_prepareForReuse.startWithSignal { signal, disposable in
                 bindableCell.bind(item, pushback: pushbackAction, reuse: signal)
-                signal.takeUntil(signal).observe(completed: { [weak cell] in let bindedCell = cell as? Bindable; bindedCell?.unbind() })
+                signal.takeUntil(signal).observe(completed: completedClosure)
             }
         }
         
@@ -49,5 +49,16 @@ public class TableViewDataSource: NSObject, UITableViewDataSource {
     
     public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return data.numberOfSections()
+    }
+}
+
+extension TableViewDataSource {
+    
+    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>) {
+        self.init(dataProducer: dataProducer.map { [$0] })
+    }
+    
+    convenience public init(dataProducer: SignalProducer<Reusable, NoError>) {
+        self.init(dataProducer: dataProducer.map { [[$0]] })
     }
 }

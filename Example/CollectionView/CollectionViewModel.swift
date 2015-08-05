@@ -5,10 +5,11 @@ import ReactiveDataSource
 class CollectionViewModel {
     
     let dataSource: CollectionViewDataSource
-    
-    init(collectionView: UICollectionView) {
-        
-        dataSource = CollectionViewDataSource(collectionView: collectionView, dataProducer: dataProducer)
+    let delegate: CollectionViewDelegate
+
+    init() {
+        dataSource = CollectionViewDataSource(dataProducer: dataProducer)
+        delegate = CollectionViewDelegate(dataProducer: dataProducer)
     }
     
     deinit {

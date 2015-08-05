@@ -47,6 +47,8 @@
 		06E635B21B65BE2400C35246 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E635AC1B65BE2400C35246 /* TableViewController.swift */; };
 		06E635B31B65BE2400C35246 /* TableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E635AD1B65BE2400C35246 /* TableViewModel.swift */; };
 		06E635B51B65BE9300C35246 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E635B41B65BE9300C35246 /* Model.swift */; };
+		06EBD1761B719AC300CE00F6 /* UITableView+ReactiveCocoa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EBD1751B719AC300CE00F6 /* UITableView+ReactiveCocoa.swift */; };
+		06EBD1B11B71B95600CE00F6 /* UICollectionView+ReactiveCocoa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EBD1B01B71B95600CE00F6 /* UICollectionView+ReactiveCocoa.swift */; };
 		559478F21B6BFE20005493DD /* TableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559478F11B6BFE20005493DD /* TableViewDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -142,6 +144,8 @@
 		06E635AC1B65BE2400C35246 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		06E635AD1B65BE2400C35246 /* TableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewModel.swift; sourceTree = "<group>"; };
 		06E635B41B65BE9300C35246 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		06EBD1751B719AC300CE00F6 /* UITableView+ReactiveCocoa.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+ReactiveCocoa.swift"; sourceTree = "<group>"; };
+		06EBD1B01B71B95600CE00F6 /* UICollectionView+ReactiveCocoa.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+ReactiveCocoa.swift"; sourceTree = "<group>"; };
 		559478F11B6BFE20005493DD /* TableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -285,6 +289,8 @@
 				0613F00A1B643CB30051384D /* UITableViewCell+ReactiveCocoa.swift */,
 				06E635911B65BA3A00C35246 /* UICollectionReusableView+ReactiveCocoa.swift */,
 				06D9D6D51B6B1BF50054E9C5 /* UITableViewHeaderFooterView+ReactiveCocoa.swift */,
+				06EBD1751B719AC300CE00F6 /* UITableView+ReactiveCocoa.swift */,
+				06EBD1B01B71B95600CE00F6 /* UICollectionView+ReactiveCocoa.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -481,7 +487,9 @@
 				0613F00F1B643CB30051384D /* TableViewDataSource.swift in Sources */,
 				0613F0101B643CB30051384D /* UITableViewCell+ReactiveCocoa.swift in Sources */,
 				0613F00C1B643CB30051384D /* Association.swift in Sources */,
+				06EBD1B11B71B95600CE00F6 /* UICollectionView+ReactiveCocoa.swift in Sources */,
 				06E635901B65A10200C35246 /* CollectionViewDataSource.swift in Sources */,
+				06EBD1761B719AC300CE00F6 /* UITableView+ReactiveCocoa.swift in Sources */,
 				062120861B6D542C00CCFE12 /* CollectionViewDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -670,7 +678,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pierremarcairoldi.reactive-datasource";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -692,6 +702,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pierremarcairoldi.reactive-datasource";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};

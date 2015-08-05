@@ -10,17 +10,12 @@ public class CollectionViewDelegate: NSObject, UICollectionViewDelegate {
 
     public init(dataProducer: SignalProducer<[[Reusable]], NoError>) {
         
-        self.selectionAction = Action<Actionable, Actionable, NoError> { SignalProducer<Actionable, NoError>(value: $0) }
+        selectionAction = Action<Actionable, Actionable, NoError> { SignalProducer<Actionable, NoError>(value: $0) }
+        selectionSignal = selectionAction.values
         
-        self.selectionSignal = self.selectionAction.values
-        
-        self.data.property <~ dataProducer
+        data.property <~ dataProducer
 
         super.init()
-    }
-    
-    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>) {
-        self.init(dataProducer: dataProducer.map { [$0] })
     }
     
     public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -30,5 +25,16 @@ public class CollectionViewDelegate: NSObject, UICollectionViewDelegate {
         }
         
         item.select(indexPath, action: selectionAction)
+    }
+}
+
+extension TableViewDelegate {
+    
+    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>) {
+        self.init(dataProducer: dataProducer.map { [$0] })
+    }
+    
+    convenience public init(dataProducer: SignalProducer<Reusable, NoError>) {
+        self.init(dataProducer: dataProducer.map { [[$0]] })
     }
 }
