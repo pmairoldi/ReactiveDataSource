@@ -14,6 +14,9 @@ desc "Run on ci"
 lane :ci do
   tests
   sh "cd ..; bundle exec slather coverage --input-format profdata"
+  if ENV["CODE_COV_TOKEN"]
+    sh "./send_coverage.sh"
+  end
 end
 
 after_all do |lane|
