@@ -1,4 +1,2 @@
-github "Quick/Nimble" "8a331b62af447eac261b92be2a479741d088e997"
-github "Quick/Quick" "e3c802be6c55710b39dba73caab9f234932c2ed7"
 github "antitypical/Result" "932ac1aabf6d881ead74c4e6911d1271e95d2859"
 github "ReactiveCocoa/ReactiveCocoa" "a7f8b028253b30a1184d9c4faa838b7c98606b0e"
