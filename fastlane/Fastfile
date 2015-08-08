@@ -5,13 +5,14 @@ before_all do
 end
 
 desc "Runs all the tests"
-lane :test do
+lane :tests do
   xcclean
   xctest destination: "platform=iOS Simulator,OS=9.0,name=iPhone 6", scheme: "ReactiveDataSource"
 end
 
-desc "Generate code coverage"
-lane :coverage do
+desc "Run on ci"
+lane :ci do
+  tests
   sh "cd ..; bundle exec slather coverage --input-format profdata"
 end
 
