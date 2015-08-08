@@ -6,6 +6,7 @@ end
 
 desc "Runs all the tests"
 lane :test do
+  xcclean
   xctest destination: "platform=iOS Simulator,OS=9.0,name=iPhone 6", scheme: "ReactiveDataSource"
 end
 
