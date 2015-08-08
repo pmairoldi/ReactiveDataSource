@@ -1,0 +1,27 @@
+fastlane_version "1.15.0"
+
+before_all do
+
+end
+
+desc "Runs all the tests"
+lane :test do
+  xctest destination: "platform=iOS Simulator,OS=9.0,name=iPhone 6", scheme: "ReactiveDataSource"
+end
+
+after_all do |lane|
+  if ENV["SLACK_URL"]
+    slack(
+      message: "Successfully built ReactiveDataSource"
+    )
+  end
+end
+
+error do |lane, exception|
+  if ENV["SLACK_URL"]
+    slack(
+      message: exception.message,
+      success: false
+    )
+  end
+end

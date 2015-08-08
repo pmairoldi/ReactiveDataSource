@@ -18,7 +18,7 @@ class ArrayExtensionTests: XCTestCase {
         let array = [0,1,2]
         let item = array.atIndex(1)
         
-        XCTAssertEqualOptional(item, 1)
+        XCTAssertEqual(item, 1)
     }
 
     func testIndexOutOfBounds() {
@@ -26,6 +26,6 @@ class ArrayExtensionTests: XCTestCase {
         let array = [0,1,2]
         let item = array.atIndex(3)
         
-        XCTAssertEqualOptional(item, nil)
+        XCTAssertEqual(item, nil)
     }
 }

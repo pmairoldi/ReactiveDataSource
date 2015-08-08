@@ -22,7 +22,7 @@ class DataTests: XCTestCase {
         
         XCTAssertEqual(sectionCount, 0)
         XCTAssertEqual(numberOfRows, 0)
-        XCTAssertEqualOptional(itemAtIndex, nil)
+        XCTAssertEqual(itemAtIndex, nil)
     }
     
     func testRowDataNotEmpty() {
@@ -35,7 +35,7 @@ class DataTests: XCTestCase {
         
         XCTAssertEqual(sectionCount, 1)
         XCTAssertEqual(numberOfRows, 1)
-        XCTAssertEqualOptional(itemAtIndex, "test")
+        XCTAssertEqual(itemAtIndex, "test")
     }
     
     func testSectionDataEmpty() {
@@ -43,7 +43,7 @@ class DataTests: XCTestCase {
         let sectionData = SectionData<String>()
         let item = sectionData.item(inSection: 0)
         
-        XCTAssertEqualOptional(item, nil)
+        XCTAssertEqual(item, nil)
     }
     
     func testSectionDataNotEmpty() {
@@ -52,6 +52,6 @@ class DataTests: XCTestCase {
         sectionData.property.value = ["test"]
         let item = sectionData.item(inSection: 0)
         
-        XCTAssertEqualOptional(item, "test")
+        XCTAssertEqual(item, "test")
     }
 }
