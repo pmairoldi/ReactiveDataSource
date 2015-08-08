@@ -5,7 +5,7 @@ import ReactiveCocoa
 class CollectionViewController: UICollectionViewController {
     
     /// Make sure that the dataSource is a strong reference
-    /// UICollectionView's dataSource property is marked weak 
+    /// UICollectionView's dataSource property is marked weak
     /// so it will be deallocated if not retained properly
     var model: CollectionViewModel?
     
@@ -28,28 +28,8 @@ class CollectionViewController: UICollectionViewController {
         collectionView.rac_delegate = model?.delegate
         collectionView.collectionViewLayout = layout
         
-        model?.dataSource.pushbackSignal.observe(next: { [weak self] value in
-            switch value {
-            case let CellActions.Button1(x):
-                self?.displayMessage("Action", message: x)
-            case let CellActions.Button2(x):
-                self?.displayMessage("Action", message: x)
-            default:
-                print("noop")
-            }
-        })
-        
-        model?.delegate.selectionSignal.observe(next: { [weak self] value in
-            
-            let navController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ReactiveCollectionView") as! UINavigationController
-            
-            switch value as! SelectionActions  {
-            case .Push:
-                self?.navigationController?.pushViewController(navController.viewControllers[0], animated: true)
-            case .Pop:
-                self?.navigationController?.presentViewController(navController, animated: true, completion: nil)
-            }
-        })
+        model?.dataSource.pushbackSignal.observe(next: pushbackAction())
+        model?.delegate.selectionSignal.observe(next: selectionAction())
     }
     
     deinit {

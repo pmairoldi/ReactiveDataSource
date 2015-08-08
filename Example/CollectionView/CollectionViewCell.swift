@@ -4,22 +4,14 @@ import ReactiveDataSource
 
 class CollectionViewCell: UICollectionViewCell, Bindable {
     
-    @IBOutlet weak var titleLabel: UILabel?
-    @IBOutlet weak var buttonOne: UIButton?
-    @IBOutlet weak var buttonTwo: UIButton?
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var buttonOne: UIButton!
+    @IBOutlet weak var buttonTwo: UIButton!
     
     func bind<T>(viewModel: T, pushback: Action<Actionable, Actionable, NoError>?, reuse: Signal<Void, NoError>?) {
         
         guard let viewModel = viewModel as? CellViewModel else {
             return
-        }
-        
-        guard
-            let titleLabel = titleLabel,
-            let buttonOne = buttonOne,
-            let buttonTwo = buttonTwo
-            else {
-                return
         }
         
         titleLabel.rac_text <~ viewModel.text

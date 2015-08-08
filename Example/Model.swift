@@ -9,9 +9,9 @@ struct CellViewModel: Reusable, Selectable {
     let buttonTwoAction: Action<AnyObject, Void, NoError>
     
     init(value: Int) {
-        self.text = MutableProperty("\(value)")
-        self.buttonOneAction = Action<AnyObject, Void, NoError> { _ in SignalProducer(value: ()) }
-        self.buttonTwoAction = Action<AnyObject, Void, NoError> { _ in SignalProducer(value: ()) }
+        text = MutableProperty("\(value)")
+        buttonOneAction = Action<AnyObject, Void, NoError> { _ in SignalProducer(value: ()) }
+        buttonTwoAction = Action<AnyObject, Void, NoError> { _ in SignalProducer(value: ()) }
     }
     
     var reuseIdentifier: String {
@@ -19,7 +19,7 @@ struct CellViewModel: Reusable, Selectable {
     }
     
     func select(indexPath: NSIndexPath, action: Action<Actionable, Actionable, NoError>?) {
-      
+        
         if indexPath.row % 2 == 0 {
             action?.apply(SelectionActions.Push).start()
         } else {
@@ -32,8 +32,8 @@ struct HeaderViewModel: Reusable, Adjustable {
     
     let text: MutableProperty<String>
     
-    init(value: Int) {
-        self.text = MutableProperty("\(value)")
+    init(value: String) {
+        text = MutableProperty(value)
     }
     
     var reuseIdentifier: String {
@@ -41,22 +41,12 @@ struct HeaderViewModel: Reusable, Adjustable {
     }
     
     var height: CGFloat {
-        return 100.0
+        return 44.0
     }
     
     var estimatedHeight: CGFloat {
-        return 100.0
+        return 44.0
     }
-}
-
-enum CellActions: Actionable {
-    case Button1(String)
-    case Button2(String)
-}
-
-enum SelectionActions: Actionable {
-    case Push
-    case Pop
 }
 
 let cellModels: [Reusable] = [1,2,3,4,5,6,7,8,9,10,11,12].map { CellViewModel(value: $0) }
@@ -66,5 +56,5 @@ let dataProducer = SignalProducer<[Reusable], NoError> { sink, disposable in
 }
 
 let headerProducer = SignalProducer<Reusable, NoError> { sink, disposable in
-    sendNext(sink, HeaderViewModel(value: 1))
+    sendNext(sink, HeaderViewModel(value: "Header"))
 }

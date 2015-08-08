@@ -23,26 +23,8 @@ class TableViewController: UITableViewController {
         tableView.rac_dataSource = model?.dataSource
         tableView.rac_delegate = model?.delegate
         
-        model?.dataSource.pushbackSignal.observe(next: { [weak self] value in
-            switch value as! CellActions {
-            case let .Button1(x):
-                self?.displayMessage("Action", message: x)
-            case let .Button2(x):
-                self?.displayMessage("Action", message: x)
-            }
-        })
-        
-        model?.delegate.selectionSignal.observe(next: { [weak self] value in
-            
-            let navController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ReactiveTableView") as! UINavigationController
-            
-            switch value as! SelectionActions  {
-            case .Push:
-                self?.navigationController?.pushViewController(navController.viewControllers[0], animated: true)
-            case .Pop:
-                self?.navigationController?.presentViewController(navController, animated: true, completion: nil)
-            }
-        })
+        model?.dataSource.pushbackSignal.observe(next: pushbackAction())
+        model?.delegate.selectionSignal.observe(next: selectionAction())
     }
     
     deinit {

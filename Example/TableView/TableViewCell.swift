@@ -4,22 +4,14 @@ import ReactiveDataSource
 
 class TableViewCell: UITableViewCell, Bindable {
     
-    @IBOutlet weak var titleLabel: UILabel?
-    @IBOutlet weak var buttonOne: UIButton?
-    @IBOutlet weak var buttonTwo: UIButton?
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var buttonOne: UIButton!
+    @IBOutlet weak var buttonTwo: UIButton!
     
     func bind<T>(viewModel: T, pushback: Action<Actionable, Actionable, NoError>?, reuse: Signal<Void, NoError>?) {
         
         guard let viewModel = viewModel as? CellViewModel else {
             return
-        }
-        
-        guard
-            let titleLabel = titleLabel,
-            let buttonOne = buttonOne,
-            let buttonTwo = buttonTwo
-            else {
-                return
         }
         
         titleLabel.rac_text <~ viewModel.text
@@ -47,7 +39,7 @@ class TableViewCell: UITableViewCell, Bindable {
 
 class TableViewHeader: UITableViewHeaderFooterView, Bindable {
     
-    var titleLabel: UILabel?
+    let titleLabel = UILabel()
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -60,8 +52,13 @@ class TableViewHeader: UITableViewHeaderFooterView, Bindable {
     }
     
     func commonInit() {
-        titleLabel = UILabel(frame: CGRectMake(0, 0, 300, 44))
-        self.contentView.addSubview(titleLabel!)
+        contentView.addSubview(titleLabel)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    
+        titleLabel.frame = CGRectMake(11, 0, CGRectGetWidth(contentView.frame) - 22, CGRectGetHeight(contentView.frame))
     }
     
     func bind<T>(viewModel: T, pushback: Action<Actionable, Actionable, NoError>?, reuse: Signal<Void, NoError>?) {
@@ -69,13 +66,7 @@ class TableViewHeader: UITableViewHeaderFooterView, Bindable {
         guard let viewModel = viewModel as? HeaderViewModel else {
             return
         }
-        
-        guard
-            let titleLabel = titleLabel
-            else {
-                return
-        }
-        
+
         titleLabel.rac_text <~ viewModel.text
     }
     
