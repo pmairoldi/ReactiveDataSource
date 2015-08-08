@@ -47,3 +47,5 @@ report.xml
 *.mobileprovision
 fastlane/screenshots
 fastlane/.env
+
+cobertura.xml

@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/petester42/slather.git
+  revision: 9e5724b2031b7bf7e3626a4296599b9dccd1dfc6
+  specs:
+    slather (1.7.2)
+      clamp (~> 0.6)
+      nokogiri (~> 1.6.3)
+      xcodeproj (~> 0.24.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -24,7 +33,7 @@ GEM
       fastlane_core (>= 0.9.1)
       spaceship (>= 0.0.10)
     certified (1.0.0)
-    claide (0.9.1)
+    clamp (0.6.5)
     cliver (0.3.2)
     colored (1.2)
     commander (4.3.4)
@@ -191,9 +200,8 @@ GEM
     websocket-driver (0.6.2)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
-    xcodeproj (0.26.3)
+    xcodeproj (0.24.3)
       activesupport (>= 3)
-      claide (~> 0.9.1)
       colored (~> 1.2)
     xcpretty (0.1.10)
     xpath (2.0.0)
@@ -205,6 +213,7 @@ PLATFORMS
 DEPENDENCIES
   fastlane (~> 1.15)
   net-ssh (= 2.9)
+  slather!
 
 BUNDLED WITH
    1.10.6
