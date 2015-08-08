@@ -23,6 +23,6 @@ class AssociationTests: XCTestCase {
         
         associatedObject(object, key: &Object.key, initial: { "initial" })
         
-        XCTAssertEqual(objc_getAssociatedObject(object, &Object.key) as? String, "initial")
+        XCTAssertEqualOptional(objc_getAssociatedObject(object, &Object.key) as? String, "initial")
     }
 }

@@ -13,8 +13,11 @@
 		0613F00F1B643CB30051384D /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0613F0091B643CB30051384D /* TableViewDataSource.swift */; };
 		0613F0101B643CB30051384D /* ReusableViews+ReactiveCocoa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0613F00A1B643CB30051384D /* ReusableViews+ReactiveCocoa.swift */; };
 		062120861B6D542C00CCFE12 /* CollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062120851B6D542C00CCFE12 /* CollectionViewDelegate.swift */; };
-		0641999C1B6433C400424C84 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0641999A1B6433C400424C84 /* ReactiveCocoa.framework */; };
-		0641999F1B6434C200424C84 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0641999B1B6433C400424C84 /* Result.framework */; };
+		062BD2E71B75CFF300F01B78 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 062BD2E51B75CFF300F01B78 /* ReactiveCocoa.framework */; };
+		062BD2E81B75CFF300F01B78 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 062BD2E61B75CFF300F01B78 /* Result.framework */; };
+		062BD2E91B75D00900F01B78 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 062BD2E51B75CFF300F01B78 /* ReactiveCocoa.framework */; };
+		062BD2EA1B75D00900F01B78 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 062BD2E61B75CFF300F01B78 /* Result.framework */; };
+		062BD2EC1B75D13200F01B78 /* XCTest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062BD2EB1B75D13200F01B78 /* XCTest+Extensions.swift */; };
 		064199A91B64351900424C84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064199A81B64351900424C84 /* AppDelegate.swift */; };
 		064199AE1B64351900424C84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 064199AC1B64351900424C84 /* Main.storyboard */; };
 		064199B01B64351900424C84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 064199AF1B64351900424C84 /* Assets.xcassets */; };
@@ -30,11 +33,9 @@
 		066832A41B75B6BB00BB1B4B /* ReactiveCocoaExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066832A31B75B6BB00BB1B4B /* ReactiveCocoaExtensionTests.swift */; };
 		06706C731B759B7400BCAE84 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06706C721B759B7400BCAE84 /* Actions.swift */; };
 		068AF2231B75A91800A2F427 /* DataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068AF2221B75A91800A2F427 /* DataTests.swift */; };
-		068AF2251B75A91800A2F427 /* ReactiveDataSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B97DF71B6432F9005D2C86 /* ReactiveDataSource.framework */; };
 		068AF22E1B75AA9700A2F427 /* ReactiveCocoa.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 0641999A1B6433C400424C84 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		068AF22F1B75AA9700A2F427 /* Result.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 0641999B1B6433C400424C84 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		068AF2331B75AAFA00A2F427 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0641999A1B6433C400424C84 /* ReactiveCocoa.framework */; };
-		068AF2341B75AAFA00A2F427 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0641999B1B6433C400424C84 /* Result.framework */; };
 		068AF2351B75AB4200A2F427 /* ReactiveCocoa.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 0641999A1B6433C400424C84 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		068AF2361B75AB4200A2F427 /* Result.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 0641999B1B6433C400424C84 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		068AF2381B75AD5800A2F427 /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068AF2371B75AD5800A2F427 /* ArrayExtensionTests.swift */; };
@@ -118,6 +119,9 @@
 		0613F0091B643CB30051384D /* TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
 		0613F00A1B643CB30051384D /* ReusableViews+ReactiveCocoa.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReusableViews+ReactiveCocoa.swift"; sourceTree = "<group>"; };
 		062120851B6D542C00CCFE12 /* CollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewDelegate.swift; sourceTree = "<group>"; };
+		062BD2E51B75CFF300F01B78 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = "Carthage/Build/iOS-Beta-4/ReactiveCocoa.framework"; sourceTree = "<group>"; };
+		062BD2E61B75CFF300F01B78 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = "Carthage/Build/iOS-Beta-4/Result.framework"; sourceTree = "<group>"; };
+		062BD2EB1B75D13200F01B78 /* XCTest+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTest+Extensions.swift"; sourceTree = "<group>"; };
 		0641999A1B6433C400424C84 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		0641999B1B6433C400424C84 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		064199A61B64351900424C84 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,9 +171,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				062BD2E91B75D00900F01B78 /* ReactiveCocoa.framework in Frameworks */,
+				062BD2EA1B75D00900F01B78 /* Result.framework in Frameworks */,
 				068AF2331B75AAFA00A2F427 /* ReactiveCocoa.framework in Frameworks */,
-				068AF2341B75AAFA00A2F427 /* Result.framework in Frameworks */,
-				068AF2251B75A91800A2F427 /* ReactiveDataSource.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,8 +181,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0641999F1B6434C200424C84 /* Result.framework in Frameworks */,
-				0641999C1B6433C400424C84 /* ReactiveCocoa.framework in Frameworks */,
+				062BD2E71B75CFF300F01B78 /* ReactiveCocoa.framework in Frameworks */,
+				062BD2E81B75CFF300F01B78 /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,6 +217,8 @@
 		0641999E1B64346F00424C84 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				062BD2E51B75CFF300F01B78 /* ReactiveCocoa.framework */,
+				062BD2E61B75CFF300F01B78 /* Result.framework */,
 				0641999A1B6433C400424C84 /* ReactiveCocoa.framework */,
 				0641999B1B6433C400424C84 /* Result.framework */,
 			);
@@ -263,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				068AF2241B75A91800A2F427 /* Info.plist */,
+				062BD2EB1B75D13200F01B78 /* XCTest+Extensions.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -487,6 +494,7 @@
 				068AF23A1B75AEF500A2F427 /* AssociationTests.swift in Sources */,
 				068AF2381B75AD5800A2F427 /* ArrayExtensionTests.swift in Sources */,
 				066832A41B75B6BB00BB1B4B /* ReactiveCocoaExtensionTests.swift in Sources */,
+				062BD2EC1B75D13200F01B78 /* XCTest+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,6 +591,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS-Beta-4",
 				);
 				INFOPLIST_FILE = "UnitTests/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -597,6 +606,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS-Beta-4",
 				);
 				INFOPLIST_FILE = "UnitTests/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -705,6 +715,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS-Beta-4",
 				);
 				INFOPLIST_FILE = "ReactiveDataSource/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -729,6 +740,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS-Beta-4",
 				);
 				INFOPLIST_FILE = "ReactiveDataSource/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
