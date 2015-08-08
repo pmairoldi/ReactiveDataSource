@@ -7,7 +7,7 @@ before_install:
   - sudo gem install bundler
   - sudo gem install xcode-install
 install:
-  - xcode-install install 7.0
+  - xcode-install install '7 beta 5'
   - bundle install
 script:
   - bundle exec fastlane test
