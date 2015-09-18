@@ -40,7 +40,7 @@ public class TableViewDataSource: NSObject, UITableViewDataSource {
             
             cell.rac_prepareForReuse.startWithSignal { signal, disposable in
                 bindableCell.bind(item, pushback: pushbackAction, reuse: signal)
-                signal.takeUntil(signal).observe(completed: completedClosure)
+                signal.takeUntil(signal).observeCompleted(completedClosure)
             }
         }
         

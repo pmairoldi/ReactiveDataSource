@@ -46,15 +46,15 @@
 		</data>
 		<key>Headers/NSObject+RACDeallocating.h</key>
 		<data>
-		8538jYBm32sivVevP2MrigHex/M=
+		WfVZ3dO8JyScjFoDd8dNIQlRtOw=
 		</data>
 		<key>Headers/NSObject+RACLifting.h</key>
 		<data>
-		Hr8DBe66RCRG9WJ7qSLx4oG+avo=
+		R6PNuzvKzTOncQoz8o8f1C461+U=
 		</data>
 		<key>Headers/NSObject+RACPropertySubscribing.h</key>
 		<data>
-		xQiPOf3GBUs3dLwclU/LtoGo7wg=
+		4DBbn2vHu4vARBUVZ75qeZOpiWw=
 		</data>
 		<key>Headers/NSObject+RACSelectorSignal.h</key>
 		<data>
@@ -142,7 +142,7 @@
 		</data>
 		<key>Headers/RACScheduler.h</key>
 		<data>
-		PMZQD7TgzUJbmHJmje4g/R3vN44=
+		8CxAevhhUJJx0+w256tlfxVLejU=
 		</data>
 		<key>Headers/RACScopedDisposable.h</key>
 		<data>
@@ -150,7 +150,7 @@
 		</data>
 		<key>Headers/RACSequence.h</key>
 		<data>
-		ZRHtrho/R9TMBJo9RZB7nU2FMks=
+		cTXYq4ire5hwiN3NDcnSKpMINNI=
 		</data>
 		<key>Headers/RACSerialDisposable.h</key>
 		<data>
@@ -158,15 +158,15 @@
 		</data>
 		<key>Headers/RACSignal+Operations.h</key>
 		<data>
-		SJKTfn6J9wME+rJnzZqXMEr8jjI=
+		C61zWqQWWFDF/O4xrrBQzQUWBhs=
 		</data>
 		<key>Headers/RACSignal.h</key>
 		<data>
-		iiLnOpURKQ/1gUVOIAv/tp2EX64=
+		mCaAsZ2gbxqC/z0IFefQDtS/5Vo=
 		</data>
 		<key>Headers/RACStream.h</key>
 		<data>
-		oLx7S9p5tdwYEgSL3YI1b6NNvyM=
+		IeC49CaasMQpnphDa1EAWZTfx3c=
 		</data>
 		<key>Headers/RACSubject.h</key>
 		<data>
@@ -198,11 +198,11 @@
 		</data>
 		<key>Headers/ReactiveCocoa-Swift.h</key>
 		<data>
-		Cgx82rJlfpzC094fS0vLoyVQnCw=
+		EyH8iMox9iNAwXj/abxq1M0zbCs=
 		</data>
 		<key>Headers/ReactiveCocoa.h</key>
 		<data>
-		xA1xc2bKnsSBQSOHmy0y+hzKf4Q=
+		dLjdLVxjj5btu44Ukiz3MFkaAjU=
 		</data>
 		<key>Headers/UIActionSheet+RACSignalSupport.h</key>
 		<data>
@@ -282,23 +282,23 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		yOTkk5FgIHv+Jp1cKr/BXGarMC8=
+		4wEd4yVstQs4EK65FBNxGTfILQg=
 		</data>
 		<key>Modules/ReactiveCocoa.swiftmodule/arm.swiftdoc</key>
 		<data>
-		HGNT4bizXm+KcCzGRJt2Dq96OXA=
+		pFeRLQ1IYwW9PYsfA/ZjhU3CRAU=
 		</data>
 		<key>Modules/ReactiveCocoa.swiftmodule/arm.swiftmodule</key>
 		<data>
-		iUOA/g49Ci+WIhPjWP787I9aNis=
+		UjD4TPgNq6dfYI0T89iVi6TX2Uc=
 		</data>
 		<key>Modules/ReactiveCocoa.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		CY/YSopXRxuY0pNBWbt9qJmGXWA=
+		LanQyAQOktwgG70SruYpZ6tKf8U=
 		</data>
 		<key>Modules/ReactiveCocoa.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		uxplT/Z1ZtmtMnY2WKo89wKs9vo=
+		qqkUs9QOvBWzu3SCeMY6Hq8ZIOU=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -349,15 +349,15 @@
 		</data>
 		<key>Headers/NSObject+RACDeallocating.h</key>
 		<data>
-		8538jYBm32sivVevP2MrigHex/M=
+		WfVZ3dO8JyScjFoDd8dNIQlRtOw=
 		</data>
 		<key>Headers/NSObject+RACLifting.h</key>
 		<data>
-		Hr8DBe66RCRG9WJ7qSLx4oG+avo=
+		R6PNuzvKzTOncQoz8o8f1C461+U=
 		</data>
 		<key>Headers/NSObject+RACPropertySubscribing.h</key>
 		<data>
-		xQiPOf3GBUs3dLwclU/LtoGo7wg=
+		4DBbn2vHu4vARBUVZ75qeZOpiWw=
 		</data>
 		<key>Headers/NSObject+RACSelectorSignal.h</key>
 		<data>
@@ -445,7 +445,7 @@
 		</data>
 		<key>Headers/RACScheduler.h</key>
 		<data>
-		PMZQD7TgzUJbmHJmje4g/R3vN44=
+		8CxAevhhUJJx0+w256tlfxVLejU=
 		</data>
 		<key>Headers/RACScopedDisposable.h</key>
 		<data>
@@ -453,7 +453,7 @@
 		</data>
 		<key>Headers/RACSequence.h</key>
 		<data>
-		ZRHtrho/R9TMBJo9RZB7nU2FMks=
+		cTXYq4ire5hwiN3NDcnSKpMINNI=
 		</data>
 		<key>Headers/RACSerialDisposable.h</key>
 		<data>
@@ -461,15 +461,15 @@
 		</data>
 		<key>Headers/RACSignal+Operations.h</key>
 		<data>
-		SJKTfn6J9wME+rJnzZqXMEr8jjI=
+		C61zWqQWWFDF/O4xrrBQzQUWBhs=
 		</data>
 		<key>Headers/RACSignal.h</key>
 		<data>
-		iiLnOpURKQ/1gUVOIAv/tp2EX64=
+		mCaAsZ2gbxqC/z0IFefQDtS/5Vo=
 		</data>
 		<key>Headers/RACStream.h</key>
 		<data>
-		oLx7S9p5tdwYEgSL3YI1b6NNvyM=
+		IeC49CaasMQpnphDa1EAWZTfx3c=
 		</data>
 		<key>Headers/RACSubject.h</key>
 		<data>
@@ -501,11 +501,11 @@
 		</data>
 		<key>Headers/ReactiveCocoa-Swift.h</key>
 		<data>
-		Cgx82rJlfpzC094fS0vLoyVQnCw=
+		EyH8iMox9iNAwXj/abxq1M0zbCs=
 		</data>
 		<key>Headers/ReactiveCocoa.h</key>
 		<data>
-		xA1xc2bKnsSBQSOHmy0y+hzKf4Q=
+		dLjdLVxjj5btu44Ukiz3MFkaAjU=
 		</data>
 		<key>Headers/UIActionSheet+RACSignalSupport.h</key>
 		<data>
@@ -585,19 +585,19 @@
 		</data>
 		<key>Modules/ReactiveCocoa.swiftmodule/arm.swiftdoc</key>
 		<data>
-		HGNT4bizXm+KcCzGRJt2Dq96OXA=
+		pFeRLQ1IYwW9PYsfA/ZjhU3CRAU=
 		</data>
 		<key>Modules/ReactiveCocoa.swiftmodule/arm.swiftmodule</key>
 		<data>
-		iUOA/g49Ci+WIhPjWP787I9aNis=
+		UjD4TPgNq6dfYI0T89iVi6TX2Uc=
 		</data>
 		<key>Modules/ReactiveCocoa.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		CY/YSopXRxuY0pNBWbt9qJmGXWA=
+		LanQyAQOktwgG70SruYpZ6tKf8U=
 		</data>
 		<key>Modules/ReactiveCocoa.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		uxplT/Z1ZtmtMnY2WKo89wKs9vo=
+		qqkUs9QOvBWzu3SCeMY6Hq8ZIOU=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>

@@ -37,11 +37,11 @@ class ReactiveCocoaExtensionTests: XCTestCase {
         let view = UITableViewCell()
         let reuseSignal = view.reuseSignal.toSignalProducer()
         
-        reuseSignal.start(next: { _ in
+        reuseSignal.startWithNext { _ in
             
             XCTAssert(true)
             expectation.fulfill()
-        })
+        }
         
         view.prepareForReuse()
     }
@@ -57,11 +57,11 @@ class ReactiveCocoaExtensionTests: XCTestCase {
         let view = UITableViewHeaderFooterView()
         let reuseSignal = view.reuseSignal.toSignalProducer()
         
-        reuseSignal.start(next: { _ in
+        reuseSignal.startWithNext { _ in
             
             XCTAssert(true)
             expectation.fulfill()
-        })
+        }
         
         view.prepareForReuse()
     }
@@ -77,11 +77,11 @@ class ReactiveCocoaExtensionTests: XCTestCase {
         let view = UICollectionReusableView()
         let reuseSignal = view.reuseSignal.toSignalProducer()
         
-        reuseSignal.start(next: { _ in
+        reuseSignal.startWithNext { _ in
             
             XCTAssert(true)
             expectation.fulfill()
-        })
+        }
         
         view.prepareForReuse()
     }
@@ -97,11 +97,11 @@ class ReactiveCocoaExtensionTests: XCTestCase {
         let view = UITableViewCell()
         let reuseSignal = view.rac_prepareForReuse
         
-        reuseSignal.start(next: { _ in
+        reuseSignal.startWithNext { _ in
             
             XCTAssert(true)
             expectation.fulfill()
-        })
+        }
         
         view.prepareForReuse()
     }
@@ -117,11 +117,11 @@ class ReactiveCocoaExtensionTests: XCTestCase {
         let view = MockCell()
         let reuseSignal = view.rac_prepareForReuse
         
-        reuseSignal.start(completed: {
+        reuseSignal.startWithCompleted {
             
             XCTAssert(true)
             expectation.fulfill()
-        })
+        }
     }
     
     func testRACTableViewDelegateNotSet() {

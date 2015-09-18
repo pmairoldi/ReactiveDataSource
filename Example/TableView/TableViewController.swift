@@ -23,8 +23,8 @@ class TableViewController: UITableViewController {
         tableView.rac_dataSource = model?.dataSource
         tableView.rac_delegate = model?.delegate
         
-        model?.dataSource.pushbackSignal.observe(next: pushbackAction())
-        model?.delegate.selectionSignal.observe(next: selectionAction())
+        model?.dataSource.pushbackSignal.observeNext(pushbackAction())
+        model?.delegate.selectionSignal.observeNext(selectionAction())
     }
     
     deinit {

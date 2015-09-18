@@ -38,10 +38,10 @@ func lazyMutableProperty<T>(host: AnyObject, key: UnsafePointer<Void>, setter: T
     return lazyAssociatedProperty(host, key: key) {
         let property = MutableProperty<T>(getter())
         property.producer
-            .start(next: {
+            .startWithNext {
                 newValue in
                 setter(newValue)
-            })
+            }
         return property
     }
 }
@@ -84,10 +84,10 @@ extension UITextField {
             
             let property = MutableProperty<String>(self.text ?? "")
             property.producer
-                .start(next: {
+                .startWithNext {
                     newValue in
                     self.text = newValue
-                })
+                }
             return property
         }
     }

@@ -46,7 +46,7 @@ public class TableViewDelegate: NSObject, UITableViewDelegate {
             
             view?.rac_prepareForReuse.startWithSignal { signal, disposable in
                 bindableView.bind(item, pushback: pushbackAction, reuse: signal)
-                signal.takeUntil(signal).observe(completed: completedClosure)
+                signal.takeUntil(signal).observeCompleted(completedClosure)
             }
         }
 

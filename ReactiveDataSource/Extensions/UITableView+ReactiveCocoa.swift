@@ -31,7 +31,7 @@ public extension UITableView {
             objc_setAssociatedObject(self, &Associated.dataSource, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
             
             self.dataSource = newValue
-            newValue?.data.property.producer.start(next: { [weak self] _ in self?.reloadData() })
+            newValue?.data.property.producer.startWithNext { [weak self] _ in self?.reloadData() }
         }
     }
 }
