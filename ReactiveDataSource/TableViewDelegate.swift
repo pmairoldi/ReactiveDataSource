@@ -11,7 +11,6 @@ public class TableViewDelegate: NSObject, UITableViewDelegate {
     private let data = RowData<Reusable>()
     private let headerData = SectionData<Reusable>()
     private let footerData = SectionData<Reusable>()
-    private let NoView = UIView()
     
     public init(dataProducer: SignalProducer<[[Reusable]], NoError>, headerProducer: SignalProducer<[Reusable], NoError>? = nil, footerProducer: SignalProducer<[Reusable], NoError>? = nil) {
         
@@ -65,7 +64,7 @@ public class TableViewDelegate: NSObject, UITableViewDelegate {
     public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 
         guard let item = headerData.item(inSection: section) else {
-            return NoView
+            return nil
         }
         
         return self.tableView(tableView, headerFooterViewForItem: item)
@@ -74,7 +73,7 @@ public class TableViewDelegate: NSObject, UITableViewDelegate {
     public func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
         guard let item = footerData.item(inSection: section) else {
-            return NoView
+            return nil
         }
         
         return self.tableView(tableView, headerFooterViewForItem: item)
