@@ -23,8 +23,8 @@ class CollectionViewCell: UICollectionViewCell, Bindable {
             return
         }
         
-        viewModel.buttonOneAction.values.takeUntil(reuse).observeNext { pushback?.apply(CellActions.Button1("Tapped Button 1 in Cell \(viewModel.text.value)")).start() }
-        viewModel.buttonTwoAction.values.takeUntil(reuse).observeNext { pushback?.apply(CellActions.Button2("Tapped Button 2 in Cell \(viewModel.text.value)")).start() }
+        viewModel.buttonOneAction.values.observeNext { pushback?.apply(CellActions.Button1("Tapped Button 1 in Cell \(viewModel.text.value)")).start() }
+        viewModel.buttonTwoAction.values.observeNext { pushback?.apply(CellActions.Button2("Tapped Button 2 in Cell \(viewModel.text.value)")).start() }
     }
     
     func unbind() {
@@ -34,5 +34,12 @@ class CollectionViewCell: UICollectionViewCell, Bindable {
     
     deinit {
         print("cell deinit")
+    }
+}
+
+extension CollectionViewCell: SizableCollectionView {
+    
+    internal func sizeForCollectionView(collectionView: UICollectionView, flowLayout: UICollectionViewFlowLayout) -> CGSize {
+        return flowLayout.itemSize
     }
 }

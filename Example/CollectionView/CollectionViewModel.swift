@@ -2,14 +2,63 @@ import Foundation
 import ReactiveCocoa
 import ReactiveDataSource
 
+class CollectionProvider: CollectionViewProvider {
+    
+    typealias ItemType = Int
+    typealias HeaderType = Int
+    typealias FooterType = Int
+
+    static func reuseIdentifier(item: ItemType) -> String {
+        return "Cell"
+    }
+    
+    static func supplementaryReuseIdentifier(item: Section<ItemType, HeaderType, FooterType>, kind: SupplementaryElementKind) -> String? {
+        return nil
+    }
+    
+    static func sizingCell(item: ItemType) -> SizableCollectionView {
+        return CollectionViewCell()
+    }
+    
+    static func sizingSupplementaryView(item: Section<ItemType, HeaderType, FooterType>, kind: SupplementaryElementKind) -> SizableCollectionView? {
+        return nil
+    }
+    
+    static func select(item: ItemType, indexPath: NSIndexPath, selection: Action<Actionable, Actionable, NoError>) {
+        
+    }
+    
+    static func bind(cell cell: UICollectionViewCell, to item: ItemType, pushback: Action<Actionable, Actionable, NoError>) {
+        if let cell = cell as? CollectionViewCell {
+            cell.bind(CellViewModel(value: item), pushback: pushback, reuse: nil)
+        }
+    }
+    
+    static func unbind(cell cell: UICollectionViewCell, from item: ItemType) {
+        if let cell = cell as? CollectionViewCell {
+            cell.unbind()
+        }
+    }
+    
+    static func bind(supplementaryView supplementaryView: UICollectionReusableView, to item: Section<ItemType, HeaderType, FooterType>, ofKind kind: SupplementaryElementKind, pushback: Action<Actionable, Actionable, NoError>) {
+        
+    }
+    
+    static func unbind(supplementaryView supplementaryView: UICollectionReusableView, from item: Section<ItemType, HeaderType, FooterType>, ofKind kind: SupplementaryElementKind) {
+        
+    }
+}
+
 class CollectionViewModel {
     
-    let dataSource: CollectionViewDataSource
-    let delegate: CollectionViewDelegate
+    let dataSource: CollectionViewDataSource<CollectionProvider>
+    let delegate: CollectionViewDelegate<CollectionProvider>
 
     init() {
-        dataSource = CollectionViewDataSource(dataProducer: dataProducer)
-        delegate = CollectionViewDelegate(dataProducer: dataProducer)
+        let sections: SignalProducer<[[Int]], NoError> = SignalProducer(value: [[1,2,3], [1,2,3]])
+        
+        dataSource = CollectionViewDataSource(sections)
+        delegate = CollectionViewDelegate(sections)
     }
     
     deinit {

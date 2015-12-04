@@ -1,88 +1,47 @@
 import UIKit
 import ReactiveCocoa
 
-public class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
+public final class CollectionViewDataSource<Provider: CollectionViewProvider>: NSObject, UICollectionViewDataSource {
     
-    public let pushbackSignal: Signal<Actionable, NoError>
+    private let sections = MutableProperty<[Section<Provider.ItemType, Provider.HeaderType, Provider.FooterType>]>([])
     
-    internal let data = RowData<Reusable>()
-
-    private let pushbackAction: Action<Actionable, Actionable, NoError>
-    private let NoCell = UICollectionViewCell()
-    private let NoSupplementaryElement = UICollectionReusableView()
-
-    public init(dataProducer: SignalProducer<[[Reusable]], NoError>) {
+    public init(_ sections: SignalProducer<[[Provider.ItemType]], NoError>, headers: SignalProducer<[Provider.HeaderType], NoError>? = nil, footers: SignalProducer<[Provider.FooterType], NoError>? = nil) {
         
-        pushbackAction = Action<Actionable, Actionable, NoError> { SignalProducer<Actionable, NoError>(value: $0) }
-        pushbackSignal = pushbackAction.values
-    
-        data.property <~ dataProducer
-
+        self.sections <~ mapSections(sections, headers: headers, footers: footers)
+        
         super.init()
     }
     
-    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.numberOfRows(inSection: section)
-    }
-    
-    public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-
-        guard let item = data.item(atIndexPath: indexPath) else {
-            return NoCell
-        }
-        
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(item.reuseIdentifier, forIndexPath: indexPath)
-        
-        if let bindableCell = cell as? Bindable {
-            
-            let completedClosure: () -> () = { [weak cell] in
-                (cell as? Bindable)?.unbind()
-            }
-            
-            cell.rac_prepareForReuse.startWithSignal { signal, disposable in
-                bindableCell.bind(item, pushback: pushbackAction, reuse: signal)
-                signal.takeUntil(signal).observeCompleted(completedClosure)
-            }
-        }
-        
-        return cell
+    public convenience init(_ items: SignalProducer<[Provider.ItemType], NoError>, headers: SignalProducer<[Provider.HeaderType], NoError>? = nil, footers: SignalProducer<[Provider.FooterType], NoError>? = nil) {
+        self.init(items.map { [$0] }, headers: headers, footers: footers)
     }
     
     public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return data.numberOfSections()
+        return sections.value.count
+    }
+    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return sections.value.atIndex(section)?.count ?? 0
+    }
+    
+    public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        guard let item = sections.value.atIndex(indexPath.section)?.atIndex(indexPath.row) else {
+            return UICollectionViewCell()
+        }
+        
+        return collectionView.dequeueReusableCellWithReuseIdentifier(Provider.reuseIdentifier(item), forIndexPath: indexPath)
     }
     
     public func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         
-        guard let item = data.item(atIndexPath: indexPath) as? Supplementable else {
-            return NoSupplementaryElement
+        guard let item = sections.value.atIndex(indexPath.section) else {
+            return UICollectionReusableView()
         }
         
-        let cell = collectionView.dequeueReusableSupplementaryViewOfKind(item.supplementaryElementKind, withReuseIdentifier: item.supplementaryReuseIdentifier, forIndexPath: indexPath)
-        
-        if let bindableCell = cell as? Bindable {
-            
-            let completedClosure: () -> () = { [weak cell] in
-                (cell as? Bindable)?.unbind()
-            }
-            
-            cell.rac_prepareForReuse.startWithSignal { signal, disposable in
-                bindableCell.bind(item, pushback: pushbackAction, reuse: signal)
-                signal.takeUntil(signal).observeCompleted(completedClosure)
-            }
+        guard let reuseIdentifier = Provider.supplementaryReuseIdentifier(item, kind: SupplementaryElementKind(rawValue: kind)) else {
+            return UICollectionReusableView()
         }
         
-        return cell
-    }
-}
-
-extension CollectionViewDataSource {
-
-    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>) {
-        self.init(dataProducer: dataProducer.map { [$0] })
-    }
-    
-    convenience public init(dataProducer: SignalProducer<Reusable, NoError>) {
-        self.init(dataProducer: dataProducer.map { [[$0]] })
+        return collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: reuseIdentifier, forIndexPath: indexPath)
     }
 }

@@ -24,12 +24,12 @@ class CollectionViewController: UICollectionViewController {
         
         model = CollectionViewModel()
         
-        collectionView.rac_dataSource = model?.dataSource
-        collectionView.rac_delegate = model?.delegate
+        collectionView.dataSource = model?.dataSource
+        collectionView.delegate = model?.delegate
         collectionView.collectionViewLayout = layout
         
-        model?.dataSource.pushbackSignal.observeNext(pushbackAction())
-        model?.delegate.selectionSignal.observeNext(selectionAction())
+        model?.delegate.pushback.values.observeNext(pushbackAction())
+        model?.delegate.selection.values.observeNext(selectionAction())
     }
     
     deinit {

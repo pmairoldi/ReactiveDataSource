@@ -52,6 +52,7 @@
 		06EBD1761B719AC300CE00F6 /* UITableView+ReactiveCocoa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EBD1751B719AC300CE00F6 /* UITableView+ReactiveCocoa.swift */; };
 		06EBD1B11B71B95600CE00F6 /* UICollectionView+ReactiveCocoa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EBD1B01B71B95600CE00F6 /* UICollectionView+ReactiveCocoa.swift */; };
 		559478F21B6BFE20005493DD /* TableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559478F11B6BFE20005493DD /* TableViewDelegate.swift */; };
+		55B3232A1C12390D00271F5C /* CollectionViewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B323291C12390D00271F5C /* CollectionViewProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -152,6 +153,7 @@
 		06EBD1751B719AC300CE00F6 /* UITableView+ReactiveCocoa.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+ReactiveCocoa.swift"; sourceTree = "<group>"; };
 		06EBD1B01B71B95600CE00F6 /* UICollectionView+ReactiveCocoa.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+ReactiveCocoa.swift"; sourceTree = "<group>"; };
 		559478F11B6BFE20005493DD /* TableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDelegate.swift; sourceTree = "<group>"; };
+		55B323291C12390D00271F5C /* CollectionViewProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 				06E6358D1B65A0BE00C35246 /* Data.swift */,
 				0613F0091B643CB30051384D /* TableViewDataSource.swift */,
 				559478F11B6BFE20005493DD /* TableViewDelegate.swift */,
+				55B323291C12390D00271F5C /* CollectionViewProvider.swift */,
 				06E6358F1B65A10200C35246 /* CollectionViewDataSource.swift */,
 				062120851B6D542C00CCFE12 /* CollectionViewDelegate.swift */,
 				06E635931B65BA5400C35246 /* Extensions */,
@@ -497,6 +500,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				559478F21B6BFE20005493DD /* TableViewDelegate.swift in Sources */,
+				55B3232A1C12390D00271F5C /* CollectionViewProvider.swift in Sources */,
 				06E6358A1B65848B00C35246 /* Protocols.swift in Sources */,
 				06E6358E1B65A0BE00C35246 /* Data.swift in Sources */,
 				0613F00B1B643CB30051384D /* Array+Extensions.swift in Sources */,

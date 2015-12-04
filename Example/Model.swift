@@ -2,7 +2,7 @@ import Foundation
 import ReactiveCocoa
 import ReactiveDataSource
 
-struct CellViewModel: Reusable, Selectable {
+class CellViewModel: Reusable, Selectable {
     
     let text: MutableProperty<String>
     let buttonOneAction: Action<AnyObject, Void, NoError>
@@ -25,6 +25,10 @@ struct CellViewModel: Reusable, Selectable {
         } else {
             action?.apply(SelectionActions.Pop).start()
         }
+    }
+    
+    deinit {
+        print("deinit cell view model")
     }
 }
 
@@ -52,9 +56,9 @@ struct HeaderViewModel: Reusable, Adjustable {
 let cellModels: [Reusable] = [1,2,3,4,5,6,7,8,9,10,11,12].map { CellViewModel(value: $0) }
 
 let dataProducer = SignalProducer<[Reusable], NoError> { sink, disposable in
-    sendNext(sink, cellModels)
+    sink.sendNext(cellModels)
 }
 
 let headerProducer = SignalProducer<Reusable, NoError> { sink, disposable in
-    sendNext(sink, HeaderViewModel(value: "Header"))
+    sink.sendNext(HeaderViewModel(value: "Header"))
 }

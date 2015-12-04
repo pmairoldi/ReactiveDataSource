@@ -159,39 +159,4 @@ class ReactiveCocoaExtensionTests: XCTestCase {
         
         XCTAssertEqualOptional(tableView.rac_dataSource, dataSource)
     }
-    
-    func testRACCollectionViewDelegateNotSet() {
-        
-        let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
-        let delegate = collectionView.rac_delegate
-        
-        XCTAssertEqualOptional(delegate, nil)
-    }
-    
-    func testRACCollectionViewDelegateSet() {
-        
-        let delegate = CollectionViewDelegate(dataProducer: SignalProducer(value: [MockViewModel()]))
-        
-        let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.rac_delegate = delegate
-        
-        XCTAssertEqualOptional(collectionView.rac_delegate, delegate)
-    }
-    
-    func testRACCollectionViewDataSourceNotSet() {
-        
-        let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
-        let dataSource = collectionView.rac_dataSource
-        
-        XCTAssertEqualOptional(dataSource, nil)
-    }
-    
-    func testRACCollectionViewDataSourceSet() {
-        
-        let dataSource = CollectionViewDataSource(dataProducer: SignalProducer(value: [MockViewModel()]))
-        
-        let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.rac_dataSource = dataSource
-        
-        XCTAssertEqualOptional(collectionView.rac_dataSource, dataSource)
-    }}
+}
