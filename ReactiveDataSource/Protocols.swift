@@ -1,4 +1,3 @@
-import Foundation
 import ReactiveCocoa
 
 public protocol Actionable {
@@ -6,7 +5,9 @@ public protocol Actionable {
 }
 
 public protocol Bindable {
-    func bind<T>(viewModel: T, pushback: Action<Actionable, Actionable, NoError>?, reuse: Signal<Void, NoError>?)
+    typealias ViewModelType
+    
+    func bind(viewModel: ViewModelType, pushback: Action<Actionable, Actionable, NoError>?)
     func unbind()
 }
 

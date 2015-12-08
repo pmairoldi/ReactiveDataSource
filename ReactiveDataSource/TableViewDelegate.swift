@@ -1,194 +1,183 @@
 import UIKit
 import ReactiveCocoa
 
-public class TableViewDelegate: NSObject, UITableViewDelegate {
+public final class TableViewDelegate<Provider: TableViewProvider>: NSObject, UITableViewDelegate {
     
-    public let selectionSignal: Signal<Actionable, NoError>
-    public let pushbackSignal: Signal<Actionable, NoError>
-
-    private let selectionAction: Action<Actionable, Actionable, NoError>
-    private let pushbackAction: Action<Actionable, Actionable, NoError>
-    private let data = RowData<Reusable>()
-    private let headerData = SectionData<Reusable>()
-    private let footerData = SectionData<Reusable>()
+    private let sections = MutableProperty<[Section<Provider.ItemType, Provider.HeaderType, Provider.FooterType>]>([])
     
-    public init(dataProducer: SignalProducer<[[Reusable]], NoError>, headerProducer: SignalProducer<[Reusable], NoError>? = nil, footerProducer: SignalProducer<[Reusable], NoError>? = nil) {
+    public let selection = Action<Actionable, Actionable, NoError> { SignalProducer(value: $0) }
+    public let pushback = Action<Actionable, Actionable, NoError> { SignalProducer(value: $0) }
+    
+    public init(_ sections: SignalProducer<[[Provider.ItemType]], NoError>, headers: SignalProducer<[Provider.HeaderType], NoError>? = nil, footers: SignalProducer<[Provider.FooterType], NoError>? = nil) {
         
-        selectionAction = Action<Actionable, Actionable, NoError> { SignalProducer<Actionable, NoError>(value: $0) }
-        pushbackAction = Action<Actionable, Actionable, NoError> { SignalProducer<Actionable, NoError>(value: $0) }
-
-        selectionSignal = selectionAction.values
-        pushbackSignal = pushbackAction.values
-
-        data.property <~ dataProducer
+        self.sections <~ mapSections(sections, headers: headers, footers: footers)
         
-        if let headerProducer = headerProducer {
-            headerData.property <~ headerProducer
-        }
-        
-        if let footerProducer = footerProducer {
-            footerData.property <~ footerProducer
-        }
-
         super.init()
     }
-
-    private func tableView(tableView: UITableView, headerFooterViewForItem item: Reusable) -> UIView? {
-        
-        let view = tableView.dequeueReusableHeaderFooterViewWithIdentifier(item.reuseIdentifier)
-        
-        if let bindableView = view as? Bindable {
-        
-            let completedClosure: () -> () = { [weak view] in
-                (view as? Bindable)?.unbind()
-            }
-            
-            view?.rac_prepareForReuse.startWithSignal { signal, disposable in
-                bindableView.bind(item, pushback: pushbackAction, reuse: signal)
-                signal.takeUntil(signal).observeCompleted(completedClosure)
-            }
-        }
-
-        return view
-    }
     
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        guard let item = data.item(atIndexPath: indexPath) as? Selectable else {
-            return
-        }
-        
-        item.select(indexPath, action: selectionAction)
+    public convenience init(_ items: SignalProducer<[Provider.ItemType], NoError>, headers: SignalProducer<[Provider.HeaderType], NoError>? = nil, footers: SignalProducer<[Provider.FooterType], NoError>? = nil) {
+        self.init(items.map { [$0] }, headers: headers, footers: footers)
     }
     
     public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
-        guard let item = headerData.item(inSection: section) else {
-            return nil
+    
+        guard let item = sections.value.atIndex(section) else {
+            return UITableViewHeaderFooterView()
         }
         
-        return self.tableView(tableView, headerFooterViewForItem: item)
+        guard let reuseIdentifier = Provider.supplementaryReuseIdentifier(item, kind: .Header) else {
+            return UITableViewHeaderFooterView()
+        }
+        
+        return tableView.dequeueReusableHeaderFooterViewWithIdentifier(reuseIdentifier) ?? UITableViewHeaderFooterView()
     }
     
     public func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
-        guard let item = footerData.item(inSection: section) else {
-            return nil
+        guard let item = sections.value.atIndex(section) else {
+            return UITableViewHeaderFooterView()
         }
         
-        return self.tableView(tableView, headerFooterViewForItem: item)
+        guard let reuseIdentifier = Provider.supplementaryReuseIdentifier(item, kind: .Footer) else {
+            return UITableViewHeaderFooterView()
+        }
+        
+        return tableView.dequeueReusableHeaderFooterViewWithIdentifier(reuseIdentifier) ?? UITableViewHeaderFooterView()
+    }
+    
+    public func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        guard let item = sections.value.atIndex(indexPath.section)?.atIndex(indexPath.row) else {
+            return
+        }
+        
+        Provider.bind(cell: cell, to: item, pushback: pushback)
+    }
+    
+    public func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        guard let item = sections.value.atIndex(indexPath.section)?.atIndex(indexPath.row) else {
+            return
+        }
+        
+        Provider.unbind(cell: cell, from: item)
+    }
+    
+    public func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+                
+        guard let item = sections.value.atIndex(section) else {
+            return
+        }
+        
+        Provider.bind(supplementaryView: view, to: item, ofKind: .Header, pushback: pushback)
+    }
+    
+    public func tableView(tableView: UITableView, didEndDisplayingHeaderView view: UIView, forSection section: Int) {
+        
+        guard let item = sections.value.atIndex(section) else {
+            return
+        }
+        
+        Provider.unbind(supplementaryView: view, from: item, ofKind: .Header)
+    }
+    
+    public func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        
+        guard let item = sections.value.atIndex(section) else {
+            return
+        }
+        
+        Provider.bind(supplementaryView: view, to: item, ofKind: .Footer, pushback: pushback)
+    }
+    
+    public func tableView(tableView: UITableView, didEndDisplayingFooterView view: UIView, forSection section: Int) {
+        
+        guard let item = sections.value.atIndex(section) else {
+            return
+        }
+        
+        Provider.unbind(supplementaryView: view, from: item, ofKind: .Footer)
+    }
+
+    
+    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+
+        guard let item = sections.value.atIndex(indexPath.section)?.atIndex(indexPath.row) else {
+            return
+        }
+        
+        Provider.select(item, indexPath: indexPath, selection: selection)
+    }
+    
+    public func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+       
+        guard let item = sections.value.atIndex(indexPath.section)?.atIndex(indexPath.row) else {
+            return 0.0
+        }
+        
+        return Provider.estimatedHeightForCell(item)
+    }
+    
+    public func tableView(tableView: UITableView, estimatedHeightForHeaderAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
+        guard let item = sections.value.atIndex(indexPath.section) else {
+            return 0.0
+        }
+        
+        return Provider.estimatedHeightForSupplementaryView(item, kind: .Header)
+    }
+    
+    public func tableView(tableView: UITableView, estimatedHeightForFooterAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
+        guard let item = sections.value.atIndex(indexPath.section) else {
+            return 0.0
+        }
+        
+        return Provider.estimatedHeightForSupplementaryView(item, kind: .Footer)
     }
     
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-        guard let item = data.item(atIndexPath: indexPath) as? Adjustable else {
-            return tableView.rowHeight
+        guard let item = sections.value.atIndex(indexPath.section)?.atIndex(indexPath.row) else {
+            return 0.0
         }
         
-        return item.height
-    }
-    
-    public func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let cell = Provider.sizingCell(item)
         
-        guard let item = headerData.item(inSection: section) as? Adjustable else {
-            return tableView.sectionHeaderHeight
+        if let binableCell = cell as? UITableViewCell {
+            Provider.bind(cell: binableCell, to: item, pushback: pushback)
         }
         
-        return item.height
+        return cell?.heightForTableView(tableView) ?? 0.0
     }
     
-    public func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    public func tableView(tableView: UITableView, heightForHeaderAtIndexPath indexPath: NSIndexPath) -> CGFloat {
        
-        guard let item = footerData.item(inSection: section) as? Adjustable else {
-            return tableView.sectionFooterHeight
+        guard let item = sections.value.atIndex(indexPath.section) else {
+            return 0.0
         }
         
-        return item.height
-    }
-    
-    public func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        let cell = Provider.sizingSupplementaryView(item, kind: .Header)
         
-        guard let item = data.item(atIndexPath: indexPath) as? Adjustable else {
-            return tableView.estimatedRowHeight
+        if let bindableView = cell as? UIView {
+            Provider.bind(supplementaryView: bindableView, to: item, ofKind: .Header, pushback: pushback)
         }
         
-        return item.estimatedHeight
+        return cell?.heightForTableView(tableView) ?? 0.0
     }
     
-    public func tableView(tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+    public func tableView(tableView: UITableView, heightForFooterAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-        guard let item = headerData.item(inSection: section) as? Adjustable else {
-            return tableView.estimatedSectionHeaderHeight
+        guard let item = sections.value.atIndex(indexPath.section) else {
+            return 0.0
         }
         
-        return item.estimatedHeight
-    }
-    
-    public func tableView(tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
+        let cell = Provider.sizingSupplementaryView(item, kind: .Footer)
         
-        guard let item = footerData.item(inSection: section) as? Adjustable else {
-            return tableView.estimatedSectionFooterHeight
+        if let bindableView = cell as? UIView {
+            Provider.bind(supplementaryView: bindableView, to: item, ofKind: .Footer, pushback: pushback)
         }
         
-        return item.estimatedHeight
-    }
-}
-
-extension TableViewDelegate {
-    
-    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>) {
-        self.init(dataProducer: dataProducer.map { [$0] }, headerProducer: nil, footerProducer: nil)
-    }
-    
-    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>, headerProducer: SignalProducer<[Reusable], NoError>?, footerProducer: SignalProducer<[Reusable], NoError>?) {
-        self.init(dataProducer: dataProducer.map { [$0] }, headerProducer: headerProducer, footerProducer: footerProducer)
-    }
-    
-    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>, headerProducer: SignalProducer<[Reusable], NoError>?) {
-        self.init(dataProducer: dataProducer.map { [$0] }, headerProducer: headerProducer, footerProducer: nil)
-    }
-    
-    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>, footerProducer: SignalProducer<[Reusable], NoError>?) {
-        self.init(dataProducer: dataProducer.map { [$0] }, headerProducer: nil, footerProducer: footerProducer)
-    }
-    
-    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>, headerProducer: SignalProducer<Reusable, NoError>?, footerProducer: SignalProducer<Reusable, NoError>?) {
-        self.init(dataProducer: dataProducer.map { [$0] }, headerProducer: headerProducer?.map { [$0] }, footerProducer: footerProducer?.map { [$0] })
-    }
-    
-    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>, headerProducer: SignalProducer<Reusable, NoError>?) {
-        self.init(dataProducer: dataProducer.map { [$0] }, headerProducer: headerProducer?.map { [$0] }, footerProducer: nil)
-    }
-    
-    convenience public init(dataProducer: SignalProducer<[Reusable], NoError>, footerProducer: SignalProducer<Reusable, NoError>?) {
-        self.init(dataProducer: dataProducer.map { [$0] }, headerProducer: nil, footerProducer: footerProducer?.map { [$0] })
-    }
-    
-    convenience public init(dataProducer: SignalProducer<Reusable, NoError>) {
-        self.init(dataProducer: dataProducer.map { [[$0]] }, headerProducer: nil, footerProducer: nil)
-    }
-
-    convenience public init(dataProducer: SignalProducer<Reusable, NoError>, headerProducer: SignalProducer<[Reusable], NoError>?, footerProducer: SignalProducer<[Reusable], NoError>?) {
-        self.init(dataProducer: dataProducer.map { [[$0]] }, headerProducer: headerProducer, footerProducer: footerProducer)
-    }
-    
-    convenience public init(dataProducer: SignalProducer<Reusable, NoError>, headerProducer: SignalProducer<[Reusable], NoError>?) {
-        self.init(dataProducer: dataProducer.map { [[$0]] }, headerProducer: headerProducer, footerProducer: nil)
-    }
-    
-    convenience public init(dataProducer: SignalProducer<Reusable, NoError>, footerProducer: SignalProducer<[Reusable], NoError>?) {
-        self.init(dataProducer: dataProducer.map { [[$0]] }, headerProducer: nil, footerProducer: footerProducer)
-    }
-    
-    convenience public init(dataProducer: SignalProducer<Reusable, NoError>, headerProducer: SignalProducer<Reusable, NoError>?, footerProducer: SignalProducer<Reusable, NoError>?) {
-        self.init(dataProducer: dataProducer.map { [[$0]] }, headerProducer: headerProducer?.map { [$0] }, footerProducer: footerProducer?.map { [$0] })
-    }
-    
-    convenience public init(dataProducer: SignalProducer<Reusable, NoError>, headerProducer: SignalProducer<Reusable, NoError>?) {
-        self.init(dataProducer: dataProducer.map { [[$0]] }, headerProducer: headerProducer?.map { [$0] }, footerProducer: nil)
-    }
-    
-    convenience public init(dataProducer: SignalProducer<Reusable, NoError>, footerProducer: SignalProducer<Reusable, NoError>?) {
-        self.init(dataProducer: dataProducer.map { [[$0]] }, headerProducer: nil, footerProducer: footerProducer?.map { [$0] })
+        return cell?.heightForTableView(tableView) ?? 0.0
     }
 }

@@ -16,15 +16,17 @@ class TableViewController: UITableViewController {
             return
         }
         
+        tableView.registerNib(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
+
         model = TableViewModel()
         
         tableView.registerClass(TableViewHeader.self, forHeaderFooterViewReuseIdentifier: "Header")
         
-        tableView.rac_dataSource = model?.dataSource
-        tableView.rac_delegate = model?.delegate
+        tableView.dataSource = model?.dataSource
+        tableView.delegate = model?.delegate
         
-        model?.dataSource.pushbackSignal.observeNext(pushbackAction())
-        model?.delegate.selectionSignal.observeNext(selectionAction())
+        model?.delegate.pushback.values.observeNext(pushbackAction())
+        model?.delegate.selection.values.observeNext(selectionAction())
     }
     
     deinit {

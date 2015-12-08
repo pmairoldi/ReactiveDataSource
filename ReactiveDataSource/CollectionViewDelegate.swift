@@ -24,25 +24,17 @@ public final class CollectionViewDelegate<Provider: CollectionViewProvider>: NSO
         guard let item = sections.value.atIndex(indexPath.section)?.atIndex(indexPath.row) else {
             return
         }
-        
-        let completedClosure: () -> () = { [weak cell] in
-            (cell as? Bindable)?.unbind()
-        }
-        
-        //TODO: add viewmodel
-        cell.rac_prepareForReuse.startWithSignal { signal, disposable in
-            (cell as? Bindable)?.bind(item, pushback: pushback, reuse: signal)
-            signal.takeUntil(signal).observeCompleted(completedClosure)
-        }
+    
+        Provider.bind(cell: cell, to: item, pushback: pushback)
     }
     
     public func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         
-        guard let cell = cell as? Bindable else {
+        guard let item = sections.value.atIndex(indexPath.section)?.atIndex(indexPath.row) else {
             return
         }
         
-        cell.unbind()
+        Provider.unbind(cell: cell, from: item)
     }
     
     public func collectionView(collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, atIndexPath indexPath: NSIndexPath) {
@@ -72,25 +64,24 @@ public final class CollectionViewDelegate<Provider: CollectionViewProvider>: NSO
         Provider.select(item, indexPath: indexPath, selection: selection)
     }
     
-    //    public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-    //
-    //        guard let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout else {
-    //            return CGSizeZero
-    //        }
-    //
-    //        guard let item = sections.value.atIndex(indexPath.section)?.atIndex(indexPath.row) else {
-    //            return CGSizeZero
-    //        }
-    //
-    //        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(Provider.reuseIdentifier(item), forIndexPath: indexPath)
-    //
-    //        Provider.bind(cell: binableCell, to: item, pushback: pushback)
-    //
-    //        if let binableCell = cell as? UICollectionViewCell {
-    //        }
-    //
-    //        return cell.sizeForCollectionView(collectionView, flowLayout: flowLayout)
-    //    }
+    public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        guard let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout else {
+            return CGSizeZero
+        }
+        
+        guard let item = sections.value.atIndex(indexPath.section)?.atIndex(indexPath.row) else {
+            return CGSizeZero
+        }
+        
+        let cell = Provider.sizingCell(item)
+        
+        if let binableCell = cell as? UICollectionViewCell {
+            Provider.bind(cell: binableCell, to: item, pushback: pushback)
+        }
+        
+        return cell?.sizeForCollectionView(collectionView, flowLayout: flowLayout) ?? flowLayout.itemSize
+    }
     
     public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         

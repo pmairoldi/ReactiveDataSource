@@ -8,23 +8,17 @@ class TableViewCell: UITableViewCell, Bindable {
     @IBOutlet weak var buttonOne: UIButton!
     @IBOutlet weak var buttonTwo: UIButton!
     
-    func bind<T>(viewModel: T, pushback: Action<Actionable, Actionable, NoError>?, reuse: Signal<Void, NoError>?) {
-        
-        guard let viewModel = viewModel as? CellViewModel else {
-            return
-        }
+    func bind(viewModel: CellViewModel, pushback: Action<Actionable, Actionable, NoError>?) {
         
         titleLabel.rac_text <~ viewModel.text
         
         buttonOne.addTarget(viewModel.buttonOneAction.unsafeCocoaAction, action: CocoaAction.selector, forControlEvents: UIControlEvents.TouchUpInside)
         buttonTwo.addTarget(viewModel.buttonTwoAction.unsafeCocoaAction, action: CocoaAction.selector, forControlEvents: UIControlEvents.TouchUpInside)
         
-        guard let reuse = reuse else {
-            return
+        rac_prepareForReuse.startWithSignal { reuse, disposable in
+            viewModel.buttonOneAction.values.takeUntil(reuse).observeNext { pushback?.apply(CellActions.Button1("Tapped Button 1 in Cell \(viewModel.text.value)")).start() }
+            viewModel.buttonTwoAction.values.takeUntil(reuse).observeNext { pushback?.apply(CellActions.Button2("Tapped Button 2 in Cell \(viewModel.text.value)")).start() }
         }
-        
-        viewModel.buttonOneAction.values.takeUntil(reuse).observeNext { pushback?.apply(CellActions.Button1("Tapped Button 1 in Cell \(viewModel.text.value)")).start() }
-        viewModel.buttonTwoAction.values.takeUntil(reuse).observeNext { pushback?.apply(CellActions.Button2("Tapped Button 2 in Cell \(viewModel.text.value)")).start() }
     }
     
     func unbind() {
@@ -36,6 +30,14 @@ class TableViewCell: UITableViewCell, Bindable {
         print("cell deinit")
     }
 }
+
+extension TableViewCell: SizableTableViewCell {
+    
+    func heightForTableView(tableView: UITableView) -> CGFloat {
+        return 44.0
+    }
+}
+
 
 class TableViewHeader: UITableViewHeaderFooterView, Bindable {
     
@@ -61,11 +63,7 @@ class TableViewHeader: UITableViewHeaderFooterView, Bindable {
         titleLabel.frame = CGRectMake(11, 0, CGRectGetWidth(contentView.frame) - 22, CGRectGetHeight(contentView.frame))
     }
     
-    func bind<T>(viewModel: T, pushback: Action<Actionable, Actionable, NoError>?, reuse: Signal<Void, NoError>?) {
-        
-        guard let viewModel = viewModel as? HeaderViewModel else {
-            return
-        }
+    func bind(viewModel: HeaderViewModel, pushback: Action<Actionable, Actionable, NoError>?) {
 
         titleLabel.rac_text <~ viewModel.text
     }
@@ -76,5 +74,12 @@ class TableViewHeader: UITableViewHeaderFooterView, Bindable {
     
     deinit {
         print("header deinit")
+    }
+}
+
+extension TableViewHeader: SizableTableViewCell {
+
+    func heightForTableView(tableView: UITableView) -> CGFloat {
+        return 44.0
     }
 }

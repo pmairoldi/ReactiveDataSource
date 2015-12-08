@@ -16,21 +16,21 @@ class CollectionProvider: CollectionViewProvider {
         return nil
     }
     
-    static func sizingCell(item: ItemType) -> SizableCollectionView {
-        return CollectionViewCell()
+    static func sizingCell(item: ItemType) -> SizableCollectionViewCell? {
+        return UINib(nibName: "CollectionViewCell", bundle: nil).instantiateWithOwner(nil, options: nil).first as? CollectionViewCell
     }
     
-    static func sizingSupplementaryView(item: Section<ItemType, HeaderType, FooterType>, kind: SupplementaryElementKind) -> SizableCollectionView? {
+    static func sizingSupplementaryView(item: Section<ItemType, HeaderType, FooterType>, kind: SupplementaryElementKind) -> SizableCollectionViewCell? {
         return nil
     }
     
     static func select(item: ItemType, indexPath: NSIndexPath, selection: Action<Actionable, Actionable, NoError>) {
-        
+        selection.apply(SelectionActions.Push).start()
     }
     
     static func bind(cell cell: UICollectionViewCell, to item: ItemType, pushback: Action<Actionable, Actionable, NoError>) {
         if let cell = cell as? CollectionViewCell {
-            cell.bind(CellViewModel(value: item), pushback: pushback, reuse: nil)
+            cell.bind(CellViewModel(value: item), pushback: pushback)
         }
     }
     

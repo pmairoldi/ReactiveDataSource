@@ -16,54 +16,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="N1S-ch-2wU" customClass="TableViewCell" customModule="Example" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="108" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N1S-ch-2wU" id="CUe-YH-njF">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v0q-89-O43">
-                                            <rect key="frame" x="19" y="8" width="42" height="28"/>
-                                            <animations/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEK-aO-748">
-                                            <rect key="frame" x="533" y="8" width="59" height="28"/>
-                                            <animations/>
-                                            <state key="normal" title="Button 2"/>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sfE-Or-CVh">
-                                            <rect key="frame" x="466" y="8" width="57" height="27"/>
-                                            <animations/>
-                                            <state key="normal" title="Button 1"/>
-                                        </button>
-                                    </subviews>
-                                    <animations/>
-                                    <constraints>
-                                        <constraint firstAttribute="topMargin" secondItem="v0q-89-O43" secondAttribute="top" id="2ux-Nr-fkV"/>
-                                        <constraint firstItem="bEK-aO-748" firstAttribute="leading" secondItem="sfE-Or-CVh" secondAttribute="trailing" constant="10" id="F8b-nJ-uV9"/>
-                                        <constraint firstItem="bEK-aO-748" firstAttribute="top" secondItem="CUe-YH-njF" secondAttribute="topMargin" id="Lwc-LK-pQL"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="sfE-Or-CVh" secondAttribute="bottom" id="SFG-CX-x7U"/>
-                                        <constraint firstItem="v0q-89-O43" firstAttribute="leading" secondItem="CUe-YH-njF" secondAttribute="leadingMargin" constant="11" id="SU4-Eq-k4P"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="bEK-aO-748" secondAttribute="bottom" id="bV2-2U-IEr"/>
-                                        <constraint firstItem="sfE-Or-CVh" firstAttribute="top" secondItem="CUe-YH-njF" secondAttribute="topMargin" id="cty-7F-EcM"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="bEK-aO-748" secondAttribute="trailing" id="e9n-mP-Qwb"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="v0q-89-O43" secondAttribute="bottom" id="gfr-9A-PTL"/>
-                                        <constraint firstItem="sfE-Or-CVh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="v0q-89-O43" secondAttribute="trailing" constant="10" id="tEd-nf-eve"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <animations/>
-                                <connections>
-                                    <outlet property="buttonOne" destination="sfE-Or-CVh" id="uye-fk-zDy"/>
-                                    <outlet property="buttonTwo" destination="bEK-aO-748" id="3ik-8M-3Ai"/>
-                                    <outlet property="titleLabel" destination="v0q-89-O43" id="FsG-BH-nP3"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="kiu-Y6-Sbf" id="7P0-Mg-zGW"/>
                             <outlet property="delegate" destination="kiu-Y6-Sbf" id="fVy-AI-hnT"/>
@@ -96,59 +48,7 @@
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="Nwu-Vr-SmH" customClass="CollectionViewCell" customModule="Example" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="150" height="150"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nde-rp-ejG">
-                                            <rect key="frame" x="8" y="72" width="134" height="30"/>
-                                            <animations/>
-                                            <state key="normal" title="Button 1"/>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gHj-2v-IEz">
-                                            <rect key="frame" x="8" y="112" width="134" height="30"/>
-                                            <animations/>
-                                            <state key="normal" title="Button 2"/>
-                                        </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uQy-py-NwG">
-                                            <rect key="frame" x="8" y="8" width="134" height="30"/>
-                                            <animations/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="30" id="FRP-6p-dUM"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <animations/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="gHj-2v-IEz" firstAttribute="leading" secondItem="Nwu-Vr-SmH" secondAttribute="leadingMargin" id="2Oz-S9-TL6"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="gHj-2v-IEz" secondAttribute="bottom" id="4LM-o1-PqD"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="gHj-2v-IEz" secondAttribute="trailing" id="8Mf-Xh-q5d"/>
-                                    <constraint firstItem="gHj-2v-IEz" firstAttribute="top" secondItem="nde-rp-ejG" secondAttribute="bottom" constant="10" id="EdN-oo-ONZ"/>
-                                    <constraint firstItem="uQy-py-NwG" firstAttribute="top" secondItem="Nwu-Vr-SmH" secondAttribute="topMargin" id="FtG-ca-ZLm"/>
-                                    <constraint firstItem="uQy-py-NwG" firstAttribute="leading" secondItem="Nwu-Vr-SmH" secondAttribute="leadingMargin" id="MBJ-yO-jAg"/>
-                                    <constraint firstItem="nde-rp-ejG" firstAttribute="top" relation="greaterThanOrEqual" secondItem="uQy-py-NwG" secondAttribute="bottom" constant="10" id="SS8-JK-Qzh"/>
-                                    <constraint firstItem="nde-rp-ejG" firstAttribute="leading" secondItem="Nwu-Vr-SmH" secondAttribute="leadingMargin" id="gBd-gy-Aub"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="nde-rp-ejG" secondAttribute="trailing" id="t07-ig-7IJ"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="uQy-py-NwG" secondAttribute="trailing" id="wZz-Vf-Zmn"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="buttonOne" destination="nde-rp-ejG" id="Lu4-Pw-2xp"/>
-                                    <outlet property="buttonTwo" destination="gHj-2v-IEz" id="vwk-Bc-geq"/>
-                                    <outlet property="titleLabel" destination="uQy-py-NwG" id="BA8-wm-LUs"/>
-                                </connections>
-                            </collectionViewCell>
-                        </cells>
+                        <cells/>
                         <connections>
                             <outlet property="dataSource" destination="Tkt-7L-058" id="cwu-qM-mqF"/>
                             <outlet property="delegate" destination="Tkt-7L-058" id="8pG-XJ-XH6"/>
